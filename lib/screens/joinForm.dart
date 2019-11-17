@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-// Calendar & Links to FBLA website
+// Join FBLA Form Screen
 
-class Calendar extends StatelessWidget {
+class JoinForm extends StatelessWidget {
   final String title;
 
-  Calendar(this.title);
+  JoinForm(this.title);
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 import './widgets/nav.dart';
+import './screens/all.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp(
+    
+  ));
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -22,6 +27,17 @@ class _MyAppState extends State<MyApp> {
         body: Center(child: Text('My Page!')),
         drawer: Nav(),
       ),
+      routes: <String, WidgetBuilder>{
+        'about': (BuildContext context) => About('About'),
+        'attendence': (BuildContext context) => Attendence('Attendence'),
+        'calendar': (BuildContext context) => Calendar('Calendar'),
+        'contact': (BuildContext context) => Contact('Contact'),
+        'events': (BuildContext context) => Events('Events'),
+        'form': (BuildContext context) => JoinForm('Form'),
+        'officers': (BuildContext context) => Officers('Officers'),
+        'questions': (BuildContext context) => Questions('Questions'),
+        'social': (BuildContext context) => Social('Social Media'),
+      }
     );
   }
 }
