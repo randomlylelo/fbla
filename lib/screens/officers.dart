@@ -7,6 +7,16 @@ class Officers extends StatelessWidget {
 
   Officers(this.title);
 
+  void showAlert(BuildContext context){
+    AlertDialog dialog = AlertDialog(
+      content: Text('Lel'),
+      actions: <Widget>[
+        FlatButton(onPressed: () {Navigator.pop(context);},child: Text('Okay')),
+      ],
+    );
+    showDialog(context: context, builder: (BuildContext context) => dialog);
+  }
+
   Container items(
       BuildContext context, String name, String position, String image) {
     return Container(
@@ -50,6 +60,9 @@ class Officers extends StatelessWidget {
     return new Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.help), onPressed: (){showAlert(context);},)
+        ],
       ),
       body: Center(
         child: Container(
