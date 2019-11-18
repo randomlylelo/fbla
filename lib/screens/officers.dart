@@ -9,7 +9,7 @@ class Officers extends StatelessWidget {
 
   void showAlert(BuildContext context){
     AlertDialog dialog = AlertDialog(
-      content: Text('Lel'),
+      content: Text('This page shows Mater Lakes Academy\'s local FBLA Officer Team, on each of the cards, it shows a picture with their name and position '),
       actions: <Widget>[
         FlatButton(onPressed: () {Navigator.pop(context);},child: Text('Okay')),
       ],
