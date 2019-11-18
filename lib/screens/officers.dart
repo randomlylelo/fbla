@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/help.dart';
 // Local Officers Screen
 
 class Officers extends StatelessWidget {
   final String title;
 
   Officers(this.title);
-
-  void showAlert(BuildContext context){
-    AlertDialog dialog = AlertDialog(
-      content: Text('This page shows Mater Lakes Academy\'s local FBLA Officer Team, on each of the cards, it shows a picture with their name and position '),
-      actions: <Widget>[
-        FlatButton(onPressed: () {Navigator.pop(context);},child: Text('Okay')),
-      ],
-    );
-    showDialog(context: context, builder: (BuildContext context) => dialog);
-  }
 
   Container items(
       BuildContext context, String name, String position, String image) {
@@ -61,7 +52,7 @@ class Officers extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.help), onPressed: (){showAlert(context);},)
+          Help('This page shows Mater Lakes Academy\'s local FBLA Officer Team, on each of the cards, it shows a picture with their name and position ')
         ],
       ),
       body: Center(
