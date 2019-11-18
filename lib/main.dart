@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Home'),),
-        body: Center(child: Text('My Page!')),
+        body: Center(child: Text('What each page does!')),
         drawer: Nav(),
       ),
       routes: <String, WidgetBuilder>{
