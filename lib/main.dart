@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import './widgets/nav.dart';
 import './screens/all.dart';
 
+// TODO: Add 'Hero' Class to all the appbars
+
 void main() {
   runApp(MyApp(
     
