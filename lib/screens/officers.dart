@@ -18,12 +18,12 @@ class Officers extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height * 0.70,
               width: MediaQuery.of(context).size.width,
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                  colorFilter: new ColorFilter.mode(
+                  colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(1), BlendMode.dstATop),
-                  image: new AssetImage('./lib/images/image.jpg'),
+                  image: AssetImage('./lib/images/image.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -36,7 +36,7 @@ class Officers extends StatelessWidget {
                 title: Text(name),
                 subtitle: Text(position),
               ),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
               ),
             ),
@@ -48,7 +48,7 @@ class Officers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
@@ -73,7 +73,7 @@ class Officers extends StatelessWidget {
           ),
           alignment: Alignment.centerLeft,
           // BACKGROUND COLOR TO BOX
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
           ),
         ),

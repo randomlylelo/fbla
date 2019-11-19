@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         'events': (BuildContext context) => Events('Events'),
         'form': (BuildContext context) => JoinForm('Form'),
         'officers': (BuildContext context) => Officers('Officers'),
-        'questions': (BuildContext context) => Questions('Questions'),
+        'questions': (BuildContext context) => Question('Question'),
         'social': (BuildContext context) => Social('Social Media'),
       }
     );
