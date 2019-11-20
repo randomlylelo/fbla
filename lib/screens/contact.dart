@@ -23,20 +23,6 @@ class _ContactState extends State<Contact> {
   String _lastName = '';
   String _message = "";
 
-  void showAlert() {
-    AlertDialog dialog = AlertDialog(
-      content: Text('Hello $_firstName, your message was sent to the developers, and they will contact you by your $_email'),
-      actions: <Widget>[
-        FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Okay')),
-      ],
-    );
-    showDialog(context: context, builder: (BuildContext context) => dialog);
-  }
-
   _ContactState() {
     _emailFilter.addListener(_emailListen);
     _firstnameFilter.addListener(_firstnameListen);
@@ -71,6 +57,20 @@ class _ContactState extends State<Contact> {
     } else {
       _message = _messageFilter.text;
     }
+  }
+
+  void showAlert() {
+    AlertDialog dialog = AlertDialog(
+      content: Text('Hello $_firstName, your message was sent to the developers, and they will contact you by your email: $_email'),
+      actions: <Widget>[
+        FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Okay')),
+      ],
+    );
+    showDialog(context: context, builder: (BuildContext context) => dialog);
   }
 
   @override
