@@ -15,14 +15,17 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   // Declare Variables
   final TextEditingController _emailFilter = TextEditingController();
-  final TextEditingController _passwordFilter = TextEditingController();
+  final TextEditingController _firstnameFilter = TextEditingController();
+  final TextEditingController _lastnameFilter = TextEditingController();
+  final TextEditingController _messageFilter = TextEditingController();
   String _email = '';
   String _firstName = '';
   String _lastName = '';
+  String _message = "";
 
   void showAlert() {
     AlertDialog dialog = AlertDialog(
-      content: Text('lol'),
+      content: Text('Hello $_firstName, your message was sent to the developers, and they will contact you by your $_email'),
       actions: <Widget>[
         FlatButton(
             onPressed: () {
@@ -36,6 +39,9 @@ class _ContactState extends State<Contact> {
 
   _ContactState() {
     _emailFilter.addListener(_emailListen);
+    _firstnameFilter.addListener(_firstnameListen);
+    _lastnameFilter.addListener(_lastnameListen);
+    _messageFilter.addListener(_messageListener);
   }
 
   void _emailListen() {
@@ -43,6 +49,27 @@ class _ContactState extends State<Contact> {
       _email = '';
     } else {
       _email = _emailFilter.text;
+    }
+  }
+  void _firstnameListen() {
+    if (_firstnameFilter.text.isEmpty) {
+      _firstName = '';
+    } else {
+      _firstName = _firstnameFilter.text;
+    }
+  }
+  void _lastnameListen() {
+    if (_lastnameFilter.text.isEmpty) {
+      _lastName = '';
+    } else {
+      _lastName = _lastnameFilter.text;
+    }
+  }
+  void _messageListener() {
+    if (_messageFilter.text.isEmpty) {
+      _message = '';
+    } else {
+      _message = _messageFilter.text;
     }
   }
 
@@ -60,6 +87,7 @@ class _ContactState extends State<Contact> {
               children: <Widget>[
                 Container(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       // Text Fields
                       Container(
@@ -68,17 +96,47 @@ class _ContactState extends State<Contact> {
                           controller: _emailFilter,
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            filled: true, // Change to false when done, used for viusal aid.
+                            filled:
+                                true, // Change to false when done, used for viusal aid.
                           ),
                         ),
                       ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.only(right: 16.0),
+                            width: MediaQuery.of(context).size.width * .40,
+                            child: TextField(
+                              controller: _firstnameFilter,
+                              decoration:
+                                  InputDecoration(labelText: 'First Name'),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 16.0),
+                            width: MediaQuery.of(context).size.width * .40,
+                            child: TextField(
+                              controller: _lastnameFilter,
+                              decoration:
+                                  InputDecoration(labelText: 'Last Name'),
+                            ),
+                          ),
+                        ],
+                      ),
                       Container(
+                        width: MediaQuery.of(context).size.width,
                         child: TextField(
-                          controller: _passwordFilter,
-                          decoration: InputDecoration(labelText: 'First Name'),
-                          obscureText: true,
+                          minLines: 2,
+                          maxLines: null, // Infinity
+                          controller: _messageFilter,
+                          decoration: InputDecoration(
+                            labelText: 'Message',
+                            filled:
+                                true, // Change to false when done, used for viusal aid.
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
