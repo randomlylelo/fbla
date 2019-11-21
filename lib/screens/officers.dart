@@ -8,7 +8,7 @@ class Officers extends StatelessWidget {
 
   Officers(this.title);
 
-  Container items(
+  Container _items(
       BuildContext context, String name, String position, String image) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
@@ -61,13 +61,13 @@ class Officers extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              items(context, 'Lo', 'Developer',
+              _items(context, 'Lo', 'Developer',
                   'https://images.unsplash.com/photo-1503875154399-95d2b151e3b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-              items(context, 'Lo', 'Developer',
+              _items(context, 'Lo', 'Developer',
                   'https://images.unsplash.com/photo-1503875154399-95d2b151e3b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-              items(context, 'Lo', 'Developer',
+              _items(context, 'Lo', 'Developer',
                   'https://images.unsplash.com/photo-1503875154399-95d2b151e3b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-              items(context, 'Lo', 'Developer',
+              _items(context, 'Lo', 'Developer',
                   'https://images.unsplash.com/photo-1503875154399-95d2b151e3b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
             ],
           ),

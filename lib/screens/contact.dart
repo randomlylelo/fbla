@@ -30,6 +30,7 @@ class _ContactState extends State<Contact> {
     _messageFilter.addListener(_messageListener);
   }
 
+  // Listeners
   void _emailListen() {
     if (_emailFilter.text.isEmpty) {
       _email = '';
@@ -71,6 +72,13 @@ class _ContactState extends State<Contact> {
       ],
     );
     showDialog(context: context, builder: (BuildContext context) => dialog);
+  }
+
+  void displayMessage(){
+    print('Email: $_email');
+    print('First Name: $_firstName');
+    print('Last Name $_lastName');
+    print('Message $_message');
   }
 
   @override
@@ -145,7 +153,7 @@ class _ContactState extends State<Contact> {
                   child: Column(
                     children: <Widget>[
                       RaisedButton(
-                        child: Text('Login'),
+                        child: Text('Submit'),
                         onPressed: () => showAlert(),
                       ),
                     ],

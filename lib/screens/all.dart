@@ -7,3 +7,5 @@ export './joinForm.dart';
 export './officers.dart';
 export './questions.dart';
 export './social.dart';
+export './home.dart';
+export './admin.dart';
