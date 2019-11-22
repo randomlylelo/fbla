@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './screens/all.dart';
+import 'package:fbla/screens/all.dart';
 
 // TODO: Add 'Hero' Class to all the appbars
 // TODO: Rewrite all the code & make code easier and more beautiful to read.

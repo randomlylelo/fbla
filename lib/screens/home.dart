@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
         actions: <Widget>[
           FlatButton(
             child: Text('Admin'),
-            onPressed: () => print('lol'),
+            onPressed: () => Navigator.of(context).pushNamed('admin'),
           ),
         ],
       ),

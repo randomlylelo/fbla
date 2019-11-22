@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fbla/widgets/all.dart' as globals;
 
 class Admin extends StatefulWidget {
   @override
@@ -12,9 +13,6 @@ class _AdminState extends State<Admin> {
   final TextEditingController _emailFilter = TextEditingController();
   final TextEditingController _nameFilter = TextEditingController();
   final TextEditingController _passwordFilter = TextEditingController();
-  String _email = '';
-  String _name = '';
-  String _password = '';
 
   // Set default to login.
   Screen _form = Screen.login;
@@ -23,25 +21,25 @@ class _AdminState extends State<Admin> {
     // Email Listener
     _emailFilter.addListener(() {
       if (_emailFilter.text.isEmpty) {
-        _email = '';
+        globals.email = '';
       } else {
-        _email = _emailFilter.text;
+        globals.email = _emailFilter.text;
       }
     });
     // Name Listener
     _nameFilter.addListener(() {
       if (_nameFilter.text.isEmpty) {
-        _name = '';
+        globals.name = '';
       } else {
-        _name = _nameFilter.text;
+        globals.name = _nameFilter.text;
       }
     });
     // Password Listener
     _passwordFilter.addListener(() {
       if (_passwordFilter.text.isEmpty) {
-        _password = '';
+        globals.password = '';
       } else {
-        _password = _passwordFilter.text;
+        globals.password = _passwordFilter.text;
       }
     });
   }
@@ -83,16 +81,6 @@ class _AdminState extends State<Admin> {
               child: TextField(
                 controller: _emailFilter,
                 decoration: InputDecoration(labelText: 'Email'),
-              ),
-            ),
-            Opacity(
-              opacity: 0.0,
-              child: Container(
-                child: TextField(
-                  controller: _nameFilter,
-                  decoration: InputDecoration(labelText: 'Name'),
-                  enabled: false,
-                ),
               ),
             ),
             Container(
@@ -141,7 +129,24 @@ class _AdminState extends State<Admin> {
           children: <Widget>[
             RaisedButton(
               child: Text('Login'),
-              onPressed: () => _accPrint(),
+              onPressed: () {
+                AlertDialog dialog = AlertDialog(
+                  content: Text('Login Successful.'),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushNamed('home');
+                      },
+                      child: Text('Okay'),
+                    ),
+                  ],
+                );
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => dialog,
+                );
+              },
             ),
             FlatButton(
               child: Text('Dont have an account? Tap here to register.'),
@@ -160,7 +165,24 @@ class _AdminState extends State<Admin> {
           children: <Widget>[
             RaisedButton(
               child: Text('Create an Account'),
-              onPressed: () => _accPrint(),
+              onPressed: () {
+                AlertDialog dialog = AlertDialog(
+                  content: Text('Account Created Successfully.'),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushNamed('home');
+                      },
+                      child: Text('Okay'),
+                    ),
+                  ],
+                );
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => dialog,
+                );
+              },
             ),
             FlatButton(
               child: Text('Have an account? Click here to login.'),
@@ -173,6 +195,7 @@ class _AdminState extends State<Admin> {
   }
 
   void _accPrint() {
-    print('Email: $_email, Password: $_password, Name: $_name');
+    print(
+        'Email: ${globals.email}, Password: ${globals.password}, Name: ${globals.name}');
   }
 }
