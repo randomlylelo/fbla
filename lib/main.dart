@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fbla/screens/all.dart';
 
 // TODO: Add 'Hero' Class to all the appbars
+// TODO: Add splash screen as loading screen
 // TODO: Rewrite all the code & make code easier and more beautiful to read.
 
 void main() => runApp(MyApp());
