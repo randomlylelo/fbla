@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 // Calendar & Links to FBLA website
@@ -9,6 +8,8 @@ import 'dart:math' as math;
 // Contain Sign-Up to a current event,
 // form for either competitive event,
 // fundraiser, or community service.
+bool _addEvent = false;
+bool _allEvent = false;
 
 class Calendar extends StatefulWidget {
   final String title;
@@ -19,13 +20,18 @@ class Calendar extends StatefulWidget {
   _CalendarState createState() => _CalendarState();
 }
 
+// * CALENDAR & MAIN *
 class _CalendarState extends State<Calendar> {
   CalendarController _calendarController;
   List _selectedEvents;
   bool _select = false;
 
   Map<DateTime, List> _events = {
-    DateTime(2019, 11, 4): ['Monthly Meeting', 'Monthly', 'Monthly Meeting'],
+    DateTime(2019, 11, 4): [
+      'Monthly Meeting',
+      'Monthly',
+      'Monthly Meeting',
+    ],
     DateTime(2020, 1, 4): ['Monthly Meeting'],
     DateTime(2019, 4, 4): ['Monthly Meeting'],
     DateTime(2019, 4, 22): ['Monthly Meeting'],
@@ -62,7 +68,12 @@ class _CalendarState extends State<Calendar> {
   void _onDaySelected(DateTime day, List events) {
     setState(() {
       _selectedEvents = events;
-      _select = !_select;
+      if (_select) {
+        _select = !_select;
+      }
+      if (_selectedEvents.isNotEmpty) {
+        _select = !_select;
+      }
     });
   }
 
@@ -163,6 +174,7 @@ class _CalendarState extends State<Calendar> {
   }
 }
 
+// * FLOATING ACTION WIDGET *
 class FloatingActionButt extends StatefulWidget {
   @override
   _FloatingActionButtState createState() => _FloatingActionButtState();
@@ -172,13 +184,13 @@ class _FloatingActionButtState extends State<FloatingActionButt>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
-  List<IconData> icons = [
+  List<IconData> _icons = [
     Icons.add,
     Icons.list,
   ];
 
-  List<String> strItems = [
-    'Add Events',
+  List<String> _strItems = [
+    'Add Event',
     'All Events',
   ];
 
@@ -211,16 +223,28 @@ class _FloatingActionButtState extends State<FloatingActionButt>
           child: ScaleTransition(
             scale: CurvedAnimation(
               parent: _controller,
-              curve: Interval(0.0, 1.0 - index / icons.length / 2.0,
+              curve: Interval(0.0, 1.0 - index / _icons.length / 2.0,
                   curve: Curves.easeOut),
             ),
             child: FloatingActionButton.extended(
               heroTag: null,
               backgroundColor: backgroundColor,
               foregroundColor: foregroundColor,
-              icon: Icon(icons[index]),
-              label: Text(strItems[index]),
-              onPressed: () {},
+              icon: Icon(_icons[index]),
+              label: Text(_strItems[index]),
+              onPressed: () {
+                if (index == 0) {
+                  setState(() {
+                    _addEvent = !_addEvent;
+                  });
+                }
+                else if (index == 1) {
+                  setState(() {
+                    _allEvent = !_allEvent;
+                  });
+                }
+                _controller.reverse();
+              },
             ),
           ),
         );
@@ -254,3 +278,5 @@ class _FloatingActionButtState extends State<FloatingActionButt>
     );
   }
 }
+
+// * TEXT FIELD FOR *

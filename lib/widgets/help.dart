@@ -19,7 +19,7 @@ class _HelpState extends State<Help> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Okay')),
+            child: Text('OKAY')),
       ],
     );
     showDialog(context: context, builder: (BuildContext context) => dialog);
