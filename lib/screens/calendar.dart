@@ -22,14 +22,28 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   CalendarController _calendarController;
   List _selectedEvents;
+  bool _select = false;
 
   Map<DateTime, List> _events = {
-    DateTime(2019, 11, 4): ['Monthly Meeting'],
-    DateTime(2019, 12, 2): ['Monthly Meeting'],
+    DateTime(2019, 11, 4): ['Monthly Meeting', 'Monthly', 'Monthly Meeting'],
     DateTime(2020, 1, 4): ['Monthly Meeting'],
     DateTime(2019, 4, 4): ['Monthly Meeting'],
     DateTime(2019, 4, 22): ['Monthly Meeting'],
   };
+
+  Map<String, IconData> _icons = {
+    'Monthly Meeting': Icons.group,
+  };
+
+  Widget _iconCheck(String event) {
+    if (_icons.containsKey(event)) {
+      return Container(
+        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+        child: Icon(_icons[event]),
+      );
+    }
+    return Container();
+  }
 
   @override
   void initState() {
@@ -46,9 +60,9 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _onDaySelected(DateTime day, List events) {
-    print('CALLBACK: _onDaySelected');
     setState(() {
       _selectedEvents = events;
+      _select = !_select;
     });
   }
 
@@ -65,18 +79,54 @@ class _CalendarState extends State<Calendar> {
           Expanded(
             child: ListView(
               children: _selectedEvents
-                  .map((event) => Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 0.8),
-                          borderRadius: BorderRadius.circular(12.0),
+                  .map(
+                    (event) => Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: Card(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                              alignment: Alignment.topLeft,
+                              child: Row(
+                                children: <Widget>[
+                                  _iconCheck(event),
+                                  Container(
+                                    child: Text(
+                                      event.toString(),
+                                      style: TextStyle(fontSize: 15.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              alignment: Alignment.bottomRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  FlatButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Join Event',
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: ListTile(
-                          title: Text(event.toString()),
-                          onTap: () => print('$event tapped!'),
-                        ),
-                      ))
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           )
@@ -87,13 +137,20 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
+  Color _marker() {
+    if (_select) {
+      return Colors.transparent;
+    }
+    return Colors.black;
+  }
+
   Widget _tabCal() {
     return TableCalendar(
       events: _events,
       calendarStyle: CalendarStyle(
         todayColor: Colors.red,
         selectedColor: Colors.orange,
-        markersColor: Colors.black,
+        markersColor: _marker(),
         canEventMarkersOverflow: false,
       ),
       calendarController: _calendarController,
@@ -117,12 +174,12 @@ class _FloatingActionButtState extends State<FloatingActionButt>
 
   List<IconData> icons = [
     Icons.add,
-    Icons.person_add,
+    Icons.list,
   ];
 
   List<String> strItems = [
     'Add Events',
-    'Join Events',
+    'All Events',
   ];
 
   @override
