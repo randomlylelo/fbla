@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:math' as math;
 
+// File imports
+import 'package:fbla/screens/specific/allEvents.dart';
+
 // Calendar & Links to FBLA website
 // Competitive Events & Current Events
 
@@ -234,8 +237,8 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               label: Text(_strItems[index]),
               onPressed: () {
                 if (index == 0) {
+                  _addEvent = !_addEvent;
                   setState(() {
-                    _addEvent = !_addEvent;
                   });
                 }
                 else if (index == 1) {
@@ -278,5 +281,3 @@ class _FloatingActionButtState extends State<FloatingActionButt>
     );
   }
 }
-
-// * TEXT FIELD FOR *

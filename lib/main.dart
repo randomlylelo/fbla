@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
         // Part of Opening Screen
         'home': (BuildContext context) => Home(),
         'admin': (BuildContext context) => Admin(),
+
+        // Part of Calendar
       },
     );
   }
