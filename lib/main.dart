@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
         'attendence': (BuildContext context) => Attendence('Attendence'),
         'calendar': (BuildContext context) => Calendar('Calendar'),
         'contact': (BuildContext context) => Contact('Contact'),
-        'events': (BuildContext context) => Events('Events'),
         'form': (BuildContext context) => JoinForm('Form'),
         'officers': (BuildContext context) => Officers('Officers'),
         'questions': (BuildContext context) => Question('Question'),
