@@ -13,6 +13,7 @@ class Officers extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       child: Card(
+        elevation: 10,
         child: Wrap(
           children: <Widget>[
             Container(
