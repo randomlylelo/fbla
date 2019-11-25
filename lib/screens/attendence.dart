@@ -28,20 +28,8 @@ class _AttendenceState extends State<Attendence> {
     false,
     false,
   ];
-  int _size = 0;
-
   // TextController
   final TextEditingController _inputFilter = TextEditingController();
-  _AttendenceState() {
-    _inputFilter.addListener(() {
-      for (int i = 0; i < _students.length; i++) {
-        _size = i;
-      }
-      if(_inputFilter.text.isEmpty){
-        
-      }
-    });
-  }
 
   Widget _addStuds() {
     if (_addStudents) {
@@ -51,13 +39,27 @@ class _AttendenceState extends State<Attendence> {
             Container(
               padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextField(
+                controller: _inputFilter,
+                onSubmitted: (text) {
+                  if (!(text == '')) {
+                    _students.add(text);
+                    _studentVal.add(false);
+                    _inputFilter.clear();
+                    setState(() {});
+                  }
+                },
                 textInputAction: TextInputAction.send,
                 decoration: InputDecoration(
                   helperText: 'Type in Student name then press the button',
                   labelText: 'Student Name',
                   suffixIcon: IconButton(
                     onPressed: () {
-                      // Get the length of the list.
+                      if (!(_inputFilter.text == '')) {
+                        _students.add(_inputFilter.text);
+                        _studentVal.add(false);
+                        _inputFilter.clear();
+                        setState(() {});
+                      }
                     },
                     icon: Icon(Icons.send),
                   ),
@@ -145,10 +147,9 @@ class _AttendenceState extends State<Attendence> {
           });
         },
         tooltip: 'Add Members/Meeting Dates',
-        child: Icon(_addStudents
-            ? Icons.close
-            : Icons
-                .add), // if addstudents is true then show close button, else show add.
+        child: Icon(
+          _addStudents ? Icons.close : Icons.add,
+        ), // if addstudents is true then show close button, else show add.
       ),
     );
   }
