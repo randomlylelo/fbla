@@ -198,4 +198,13 @@ class _AdminState extends State<Admin> {
     print(
         'Email: ${globals.email}, Password: ${globals.password}, Name: ${globals.name}');
   }
+
+  @override
+  void dispose(){
+    // Cleaning up Controllers.
+    _nameFilter.dispose();
+    _passwordFilter.dispose();
+    _emailFilter.dispose();
+    super.dispose();
+  }
 }

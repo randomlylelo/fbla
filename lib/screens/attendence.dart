@@ -13,6 +13,7 @@ class Attendence extends StatefulWidget {
 }
 
 class _AttendenceState extends State<Attendence> {
+
   // Date & Time
   String _monDayYear = DateFormat('EEE d, MMM yyyy').format(DateTime.now());
 
@@ -152,5 +153,12 @@ class _AttendenceState extends State<Attendence> {
         ), // if addstudents is true then show close button, else show add.
       ),
     );
+  }
+
+  @override
+  void dispose(){
+    // Cleaning up Controller.
+    _inputFilter.dispose();
+    super.dispose();
   }
 }
