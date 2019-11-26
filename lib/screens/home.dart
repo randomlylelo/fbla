@@ -20,7 +20,24 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: Text('What each page does!')),
+      body: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(1), BlendMode.dstATop),
+                  image: AssetImage('./lib/images/image.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
       drawer: Nav(),
     );
   }
