@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         'admin': (BuildContext context) => Admin(),
 
         // Part of Calendar
+        'events': (BuildContext context) => AllEvent(),
       },
     );
   }

@@ -237,14 +237,10 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               label: Text(_strItems[index]),
               onPressed: () {
                 if (index == 0) {
-                  _addEvent = !_addEvent;
-                  setState(() {
-                  });
+                  Navigator.of(context).pushNamed('events');
                 }
                 else if (index == 1) {
-                  setState(() {
-                    _allEvent = !_allEvent;
-                  });
+                  
                 }
                 _controller.reverse();
               },

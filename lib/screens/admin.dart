@@ -136,7 +136,7 @@ class _AdminState extends State<Admin> {
                     FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.of(context).pushNamed('home');
+                        Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                       },
                       child: Text('Okay'),
                     ),
@@ -172,7 +172,7 @@ class _AdminState extends State<Admin> {
                     FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.of(context).pushNamed('home');
+                        Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
                       },
                       child: Text('Okay'),
                     ),
