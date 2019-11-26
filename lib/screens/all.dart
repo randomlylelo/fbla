@@ -1,4 +1,3 @@
-export 'package:fbla/screens/about.dart';
 export 'package:fbla/screens/attendence.dart';
 export 'package:fbla/screens/calendar.dart';
 export 'package:fbla/screens/contact.dart';

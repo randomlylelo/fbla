@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
       home: _SelectNav(),
       routes: <String, WidgetBuilder>{
         // Part of Nav
-        'about': (BuildContext context) => About('About'),
         'attendence': (BuildContext context) => Attendence('Attendence'),
         'calendar': (BuildContext context) => Calendar('Calendar'),
         'contact': (BuildContext context) => Contact('Contact'),
