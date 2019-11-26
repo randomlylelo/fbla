@@ -56,7 +56,6 @@ class _AddEventState extends State<AddEvent> {
         controller: _eventFilter,
         onSubmitted: (text) {
           if (!(text == '')) {
-            print(_date);
             if (_events[_date] == null) {
               // If Null
               _events[_date] = []; // Create Empty List
