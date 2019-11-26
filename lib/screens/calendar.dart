@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 // File imports
 import 'package:fbla/screens/specific/addEvents.dart';
+import 'package:fbla/screens/specific/allEvents.dart';
 
 // Calendar & Links to FBLA website
 // Competitive Events & Current Events
@@ -51,6 +52,63 @@ class _CalendarState extends State<Calendar> {
     return Container();
   }
 
+  Widget _itemCreator() {
+    return Expanded(
+      child: ListView(
+        children: _selectedEvents
+            .map(
+              (event) => Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          children: <Widget>[
+                            _iconCheck(event),
+                            Container(
+                              child: Text(
+                                event.toString(),
+                                style: TextStyle(fontSize: 15.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        alignment: Alignment.bottomRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              onPressed: () {},
+                              child: Text(
+                                'Join Event',
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -81,60 +139,7 @@ class _CalendarState extends State<Calendar> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           _tabCal(),
-          Expanded(
-            child: ListView(
-              children: _selectedEvents
-                  .map(
-                    (event) => Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Card(
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              alignment: Alignment.topLeft,
-                              child: Row(
-                                children: <Widget>[
-                                  _iconCheck(event),
-                                  Container(
-                                    child: Text(
-                                      event.toString(),
-                                      style: TextStyle(fontSize: 15.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                              alignment: Alignment.bottomRight,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  FlatButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    onPressed: () {},
-                                    child: Text(
-                                      'Join Event',
-                                      style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          )
+          _itemCreator(),
         ],
       ),
       floatingActionButton: FloatingActionButt(),
@@ -231,7 +236,17 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                       fullscreenDialog: true,
                     ),
                   );
-                } else if (index == 1) {}
+                } else if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => AllEvent(
+                        _events,
+                        _iconsMap,
+                      ),
+                    ),
+                  );
+                }
                 _controller.reverse();
               },
             ),

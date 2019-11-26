@@ -19,7 +19,8 @@ class _AddEventState extends State<AddEvent> {
   final TextEditingController _eventFilter = TextEditingController();
 
   // Date & Time Selector.
-  DateTime _date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime _date =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -69,6 +70,9 @@ class _AddEventState extends State<AddEvent> {
               ]; // Add the first item in list.
             }
             _eventFilter.clear();
+            Future.delayed(Duration(milliseconds: 200)).then((_) {
+              Navigator.of(context).pop();
+            });
             setState(() {});
           }
         },
@@ -94,6 +98,9 @@ class _AddEventState extends State<AddEvent> {
                 Future.delayed(Duration(milliseconds: 50)).then((_) {
                   FocusScope.of(context).unfocus();
                   _eventFilter.clear();
+                });
+                Future.delayed(Duration(milliseconds: 200)).then((_) {
+                  Navigator.of(context).pop();
                 });
                 setState(() {});
               }
