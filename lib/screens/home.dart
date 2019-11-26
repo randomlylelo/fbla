@@ -9,7 +9,13 @@ class Home extends StatelessWidget {
         title: Text('Home'),
         actions: <Widget>[
           FlatButton(
-            child: Text('Admin'),
+            child: Text(
+              'ADMIN LOGIN',
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 12,
+              ),
+            ),
             onPressed: () => Navigator.of(context).pushNamed('admin'),
           ),
         ],

@@ -14,19 +14,16 @@ class JoinForm extends StatefulWidget {
 class _JoinFormState extends State<JoinForm> {
   // Declare Variables
   final TextEditingController _emailFilter = TextEditingController();
-  final TextEditingController _firstnameFilter = TextEditingController();
-  final TextEditingController _lastnameFilter = TextEditingController();
-  final TextEditingController _messageFilter = TextEditingController();
+  final TextEditingController _nameFilter = TextEditingController();
+  final TextEditingController _idFilter = TextEditingController();
   String _email = '';
-  String _firstName = '';
-  String _lastName = '';
-  String _message = "";
+  String _name = '';
+  String _id = '';
 
   _JoinFormState() {
     _emailFilter.addListener(_emailListen);
-    _firstnameFilter.addListener(_firstnameListen);
-    _lastnameFilter.addListener(_lastnameListen);
-    _messageFilter.addListener(_messageListener);
+    _nameFilter.addListener(_nameListen);
+    _idFilter.addListener(_idListen);
   }
 
   // Listeners
@@ -37,31 +34,26 @@ class _JoinFormState extends State<JoinForm> {
       _email = _emailFilter.text;
     }
   }
-  void _firstnameListen() {
-    if (_firstnameFilter.text.isEmpty) {
-      _firstName = '';
+
+  void _nameListen() {
+    if (_nameFilter.text.isEmpty) {
+      _name = '';
     } else {
-      _firstName = _firstnameFilter.text;
+      _name = _nameFilter.text;
     }
   }
-  void _lastnameListen() {
-    if (_lastnameFilter.text.isEmpty) {
-      _lastName = '';
+
+  void _idListen() {
+    if (_idFilter.text.isEmpty) {
+      _id = '';
     } else {
-      _lastName = _lastnameFilter.text;
-    }
-  }
-  void _messageListener() {
-    if (_messageFilter.text.isEmpty) {
-      _message = '';
-    } else {
-      _message = _messageFilter.text;
+      _id = _nameFilter.text;
     }
   }
 
   void showAlert() {
     AlertDialog dialog = AlertDialog(
-      content: Text('Hello $_firstName, your message was sent to the developers, and they will contact you by your email: $_email'),
+      content: Text('Successfully Signed Up to the Event.'),
       actions: <Widget>[
         FlatButton(
             onPressed: () {
@@ -73,11 +65,10 @@ class _JoinFormState extends State<JoinForm> {
     showDialog(context: context, builder: (BuildContext context) => dialog);
   }
 
-  void displayMessage(){
+  void displayMessage() {
     print('Email: $_email');
-    print('First Name: $_firstName');
-    print('Last Name $_lastName');
-    print('Message $_message');
+    print('Full Name: $_name');
+    print('School ID: $_id');
   }
 
   @override
@@ -92,68 +83,59 @@ class _JoinFormState extends State<JoinForm> {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
+                // Text Fields
                 Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      // Text Fields
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: TextField(
-                          controller: _emailFilter,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            filled:
-                                true, // Change to false when done, used for viusal aid.
-                          ),
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(right: 16.0),
-                            width: MediaQuery.of(context).size.width * .40,
-                            child: TextField(
-                              controller: _firstnameFilter,
-                              decoration:
-                                  InputDecoration(labelText: 'First Name'),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 16.0),
-                            width: MediaQuery.of(context).size.width * .40,
-                            child: TextField(
-                              controller: _lastnameFilter,
-                              decoration:
-                                  InputDecoration(labelText: 'Last Name'),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: TextField(
-                          minLines: 2,
-                          maxLines: null, // Infinity
-                          controller: _messageFilter,
-                          decoration: InputDecoration(
-                            labelText: 'Message',
-                            filled:
-                                true, // Change to false when done, used for viusal aid.
-                          ),
-                        ),
-                      ),
-                    ],
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  child: TextField(
+                    controller: _emailFilter,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      prefixIcon: Icon(Icons.email),
+                      //prefix: Text('', style: TextStyle(fontWeight: FontWeight.bold),),
+                    ),
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  child: TextField(
+                    controller: _nameFilter,
+                    decoration: InputDecoration(
+                      labelText: 'Full Name',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  child: TextField(
+                    controller: _idFilter,
+                    decoration: InputDecoration(
+                      labelText: 'School ID',
+                      prefixIcon: Icon(Icons.school),
+                    ),
+                  ),
+                ),
+
                 // Buttons
                 Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: Column(
                     children: <Widget>[
-                      RaisedButton(
-                        child: Text('Join'),
-                        onPressed: () => showAlert(),
+                      FlatButton(
+                        color: Colors.blue,
+                        child: Text(
+                          'SUMBIT',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          showAlert();
+                          _idFilter.clear();
+                          _nameFilter.clear();
+                          _emailFilter.clear();
+                        },
                       ),
                     ],
                   ),

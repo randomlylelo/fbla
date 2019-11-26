@@ -62,7 +62,7 @@ class _AdminState extends State<Admin> {
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             _buildTextFields(),
             _buildButtons(),
@@ -80,13 +80,20 @@ class _AdminState extends State<Admin> {
             Container(
               child: TextField(
                 controller: _emailFilter,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email),
+                ),
               ),
             ),
             Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextField(
                 controller: _passwordFilter,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.person),
+                ),
                 obscureText: true,
               ),
             )
@@ -100,19 +107,28 @@ class _AdminState extends State<Admin> {
             Container(
               child: TextField(
                 controller: _emailFilter,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email),
+                ),
               ),
             ),
             Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextField(
                 controller: _nameFilter,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  prefixIcon: Icon(Icons.person),
+                ),
               ),
             ),
             Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextField(
                 controller: _passwordFilter,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(
+                    labelText: 'Password', prefixIcon: Icon(Icons.vpn_key)),
                 obscureText: true,
               ),
             )
@@ -128,7 +144,11 @@ class _AdminState extends State<Admin> {
         child: Column(
           children: <Widget>[
             RaisedButton(
-              child: Text('Login'),
+              color: Colors.blue,
+              child: Text(
+                'Login',
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 AlertDialog dialog = AlertDialog(
                   content: Text('Login Successful.'),
@@ -136,7 +156,8 @@ class _AdminState extends State<Admin> {
                     FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            'home', ModalRoute.withName('home'));
                       },
                       child: Text('Okay'),
                     ),
@@ -164,7 +185,11 @@ class _AdminState extends State<Admin> {
         child: Column(
           children: <Widget>[
             RaisedButton(
-              child: Text('Create an Account'),
+              color: Colors.blue,
+              child: Text(
+                'Create an Account',
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 AlertDialog dialog = AlertDialog(
                   content: Text('Account Created Successfully.'),
@@ -172,7 +197,8 @@ class _AdminState extends State<Admin> {
                     FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.of(context).pushNamedAndRemoveUntil('home', ModalRoute.withName('home'));
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            'home', ModalRoute.withName('home'));
                       },
                       child: Text('Okay'),
                     ),
@@ -200,7 +226,7 @@ class _AdminState extends State<Admin> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     // Cleaning up Controllers.
     _nameFilter.dispose();
     _passwordFilter.dispose();

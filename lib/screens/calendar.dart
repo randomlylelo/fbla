@@ -88,7 +88,9 @@ class _CalendarState extends State<Calendar> {
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('form');
+                              },
                               child: Text(
                                 'Join Event',
                                 style: TextStyle(
