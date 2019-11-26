@@ -58,7 +58,7 @@ class _AttendenceState extends State<Attendence> {
                       if (!(_inputFilter.text == '')) {
                         _students.add(_inputFilter.text);
                         _studentVal.add(false);
-                        _inputFilter.clear();
+                        Future.delayed(Duration(milliseconds: 50)).then((_){ _inputFilter.clear();});
                         setState(() {});
                       }
                     },

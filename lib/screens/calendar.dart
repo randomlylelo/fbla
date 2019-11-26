@@ -3,7 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'dart:math' as math;
 
 // File imports
-import 'package:fbla/screens/specific/allEvents.dart';
+import 'package:fbla/screens/specific/addEvents.dart';
 
 // Calendar & Links to FBLA website
 // Competitive Events & Current Events
@@ -11,8 +11,21 @@ import 'package:fbla/screens/specific/allEvents.dart';
 // Contain Sign-Up to a current event,
 // form for either competitive event,
 // fundraiser, or community service.
-bool _addEvent = false;
-bool _allEvent = false;
+
+Map<DateTime, List> _events = {
+  DateTime(2019, 11, 4): [
+    'Monthly Meeting',
+    'Monthly',
+    'Monthly Meeting',
+  ],
+  DateTime(2020, 1, 4): ['Monthly Meeting'],
+  DateTime(2019, 4, 4): ['Monthly Meeting'],
+  DateTime(2019, 4, 22): ['Monthly Meeting'],
+};
+
+Map<String, IconData> _iconsMap = {
+  'Monthly Meeting': Icons.group,
+};
 
 class Calendar extends StatefulWidget {
   final String title;
@@ -29,26 +42,11 @@ class _CalendarState extends State<Calendar> {
   List _selectedEvents;
   bool _select = false;
 
-  Map<DateTime, List> _events = {
-    DateTime(2019, 11, 4): [
-      'Monthly Meeting',
-      'Monthly',
-      'Monthly Meeting',
-    ],
-    DateTime(2020, 1, 4): ['Monthly Meeting'],
-    DateTime(2019, 4, 4): ['Monthly Meeting'],
-    DateTime(2019, 4, 22): ['Monthly Meeting'],
-  };
-
-  Map<String, IconData> _icons = {
-    'Monthly Meeting': Icons.group,
-  };
-
   Widget _iconCheck(String event) {
-    if (_icons.containsKey(event)) {
+    if (_iconsMap.containsKey(event)) {
       return Container(
         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-        child: Icon(_icons[event]),
+        child: Icon(_iconsMap[event]),
       );
     }
     return Container();
@@ -237,11 +235,14 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               label: Text(_strItems[index]),
               onPressed: () {
                 if (index == 0) {
-                  Navigator.of(context).pushNamed('events');
-                }
-                else if (index == 1) {
-                  
-                }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => AddEvent(
+                                _events,
+                                _iconsMap,
+                              )));
+                } else if (index == 1) {}
                 _controller.reverse();
               },
             ),
