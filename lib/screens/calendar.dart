@@ -40,7 +40,6 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   CalendarController _calendarController;
   List _selectedEvents;
-  bool _select = false;
 
   Widget _iconCheck(String event) {
     if (_iconsMap.containsKey(event)) {
@@ -69,12 +68,6 @@ class _CalendarState extends State<Calendar> {
   void _onDaySelected(DateTime day, List events) {
     setState(() {
       _selectedEvents = events;
-      if (_select) {
-        _select = !_select;
-      }
-      if (_selectedEvents.isNotEmpty) {
-        _select = !_select;
-      }
     });
   }
 
@@ -149,20 +142,13 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  Color _marker() {
-    if (_select) {
-      return Colors.transparent;
-    }
-    return Colors.black;
-  }
-
   Widget _tabCal() {
     return TableCalendar(
       events: _events,
       calendarStyle: CalendarStyle(
         todayColor: Colors.red,
         selectedColor: Colors.orange,
-        markersColor: _marker(),
+        markersColor: Colors.black,
         canEventMarkersOverflow: false,
       ),
       calendarController: _calendarController,
