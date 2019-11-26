@@ -236,12 +236,15 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               onPressed: () {
                 if (index == 0) {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => AddEvent(
-                                _events,
-                                _iconsMap,
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => AddEvent(
+                        _events,
+                        _iconsMap,
+                      ),
+                      fullscreenDialog: true,
+                    ),
+                  );
                 } else if (index == 1) {}
                 _controller.reverse();
               },
