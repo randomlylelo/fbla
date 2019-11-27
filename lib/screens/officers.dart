@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/help.dart';
+import 'package:fbla/widgets/help.dart';
 // Local Officers Screen
 
 class Officers extends StatelessWidget {
@@ -24,7 +24,7 @@ class Officers extends StatelessWidget {
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(1), BlendMode.dstATop),
-                  image: AssetImage('./lib/images/image.jpg'),
+                  image: AssetImage('./lib/assets/images/image.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
