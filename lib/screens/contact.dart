@@ -15,18 +15,18 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   // Declare Variables
   final TextEditingController _emailFilter = TextEditingController();
-  final TextEditingController _firstnameFilter = TextEditingController();
-  final TextEditingController _lastnameFilter = TextEditingController();
+  final TextEditingController _nameFilter = TextEditingController();
+  final TextEditingController _idFilter = TextEditingController();
   final TextEditingController _messageFilter = TextEditingController();
   String _email = '';
-  String _firstName = '';
-  String _lastName = '';
+  String _name = '';
+  String _id = '';
   String _message = "";
 
   _ContactState() {
     _emailFilter.addListener(_emailListen);
-    _firstnameFilter.addListener(_firstnameListen);
-    _lastnameFilter.addListener(_lastnameListen);
+    _nameFilter.addListener(_nameListen);
+    _idFilter.addListener(_idListen);
     _messageFilter.addListener(_messageListener);
   }
 
@@ -38,20 +38,23 @@ class _ContactState extends State<Contact> {
       _email = _emailFilter.text;
     }
   }
-  void _firstnameListen() {
-    if (_firstnameFilter.text.isEmpty) {
-      _firstName = '';
+
+  void _nameListen() {
+    if (_nameFilter.text.isEmpty) {
+      _name = '';
     } else {
-      _firstName = _firstnameFilter.text;
+      _name = _nameFilter.text;
     }
   }
-  void _lastnameListen() {
-    if (_lastnameFilter.text.isEmpty) {
-      _lastName = '';
+
+  void _idListen() {
+    if (_idFilter.text.isEmpty) {
+      _id = '';
     } else {
-      _lastName = _lastnameFilter.text;
+      _id = _nameFilter.text;
     }
   }
+
   void _messageListener() {
     if (_messageFilter.text.isEmpty) {
       _message = '';
@@ -62,7 +65,8 @@ class _ContactState extends State<Contact> {
 
   void showAlert() {
     AlertDialog dialog = AlertDialog(
-      content: Text('Hello $_firstName, your message was sent to the developers, and they will contact you by your email: $_email'),
+      content: Text(
+          'Hello $_name, your message was sent to the developers, and they will contact you by your email: $_email'),
       actions: <Widget>[
         FlatButton(
             onPressed: () {
@@ -74,11 +78,11 @@ class _ContactState extends State<Contact> {
     showDialog(context: context, builder: (BuildContext context) => dialog);
   }
 
-  void displayMessage(){
+  void displayMessage() {
     print('Email: $_email');
-    print('First Name: $_firstName');
-    print('Last Name $_lastName');
-    print('Message $_message');
+    print('Name: $_name');
+    print('Id: $_id');
+    print('Message: $_message');
   }
 
   @override
@@ -99,50 +103,51 @@ class _ContactState extends State<Contact> {
                     children: <Widget>[
                       // Text Fields
                       Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: _emailFilter,
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            filled:
-                                true, // Change to false when done, used for viusal aid.
+                            prefixIcon: Icon(Icons.email),
                           ),
                         ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.only(right: 16.0),
-                            width: MediaQuery.of(context).size.width * .40,
-                            child: TextField(
-                              controller: _firstnameFilter,
-                              decoration:
-                                  InputDecoration(labelText: 'First Name'),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 16.0),
-                            width: MediaQuery.of(context).size.width * .40,
-                            child: TextField(
-                              controller: _lastnameFilter,
-                              decoration:
-                                  InputDecoration(labelText: 'Last Name'),
-                            ),
-                          ),
-                        ],
-                      ),
                       Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
-                          minLines: 2,
+                          controller: _nameFilter,
+                          decoration: InputDecoration(
+                            labelText: 'Full Name',
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        width: MediaQuery.of(context).size.width,
+                        child: TextField(
+                          controller: _idFilter,
+                          decoration: InputDecoration(
+                            labelText: 'School ID',
+                            prefixIcon: Icon(Icons.school),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        width: MediaQuery.of(context).size.width,
+                        child: TextField(
+                          minLines: 3,
                           maxLines: null, // Infinity
                           controller: _messageFilter,
                           decoration: InputDecoration(
                             labelText: 'Message',
-                            filled:
-                                true, // Change to false when done, used for viusal aid.
+                            prefixIcon: Icon(Icons.message),
+                            border: OutlineInputBorder(),
                           ),
+                          
                         ),
                       ),
                     ],
@@ -150,11 +155,22 @@ class _ContactState extends State<Contact> {
                 ),
                 // Buttons
                 Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: Column(
                     children: <Widget>[
-                      RaisedButton(
-                        child: Text('Submit'),
-                        onPressed: () => showAlert(),
+                      FlatButton(
+                        color: Colors.blue,
+                        child: Text(
+                          'SUMBIT',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          showAlert();
+                          _idFilter.clear();
+                          _nameFilter.clear();
+                          _emailFilter.clear();
+                          _messageFilter.clear();
+                        },
                       ),
                     ],
                   ),

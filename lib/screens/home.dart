@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fbla/widgets/nav.dart';
-import 'package:fbla/screens/specific/joinHome.dart';
 
 class Home extends StatelessWidget {
   Widget _createSubHeading(String text) {
