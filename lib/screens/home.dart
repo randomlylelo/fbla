@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla/widgets/nav.dart';
+import 'package:fbla/screens/specific/joinHome.dart';
 
 class Home extends StatelessWidget {
   Widget _createSubHeading(String text) {
@@ -111,7 +112,7 @@ class Home extends StatelessWidget {
                           color: Color.fromRGBO(0, 30, 96, 1),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () { Navigator.of(context).pushNamed('joinHome'); },
                     )
                   ],
                 ),

@@ -44,13 +44,6 @@ class _NavState extends State<Nav> {
                   ),
                 ),
                 ListTile(
-                  title: Text('About'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('about');
-                  },
-                ),
-                ListTile(
                   title: Text('Attendence'),
                   onTap: () {
                     Navigator.pop(context);

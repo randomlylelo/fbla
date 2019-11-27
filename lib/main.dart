@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fbla/screens/all.dart';
+import 'package:fbla/screens/specific/joinHome.dart';
 
 // TODO: Add 'Hero' Class to all the appbars
 // TODO: Add splash screen as loading screen
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         // Part of Opening Screen
         'home': (BuildContext context) => Home(),
         'admin': (BuildContext context) => Admin(),
+
+        // Part of home
+        'joinHome': (BuildContext context) => JoinHome('Join FBLA!'),
       },
     );
   }
