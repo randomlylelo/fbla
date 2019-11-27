@@ -13,6 +13,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: _SelectNav(),
+      theme: ThemeData(
+        fontFamily: 'RaleWay',
+        primaryColor: Color.fromRGBO(0, 30, 96, 1), // Offical Color
+        accentColor: Color.fromRGBO(0, 173, 230, 1), // Secondary Color
+        // Color.fromRGBO(0, 0, 0, 1), // Black
+        // Color.fromRGBO(0, 51, 160, 1), // PBL Blue
+        // Color.fromRGBO(191, 13, 62, 1), // PBL Red
+      ),
       routes: <String, WidgetBuilder>{
         // Part of Nav
         'attendence': (BuildContext context) => Attendence('Attendence'),

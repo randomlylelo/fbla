@@ -16,21 +16,32 @@ class _NavState extends State<Nav> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 Container(
-                  height: 100.0,
                   child: DrawerHeader(
-                      child: Text(
-                        'NeX Chapter',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 110,
+                          alignment: Alignment.topLeft,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          child:
+                              Image.asset('./lib/assets/images/manageLogo.png'),
                         ),
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      decoration: BoxDecoration(color: Colors.blue),
-                      margin: EdgeInsets.all(0.0),
-                      padding: EdgeInsets.all(0.0)),
+                        Container(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            'FBLA: Manage',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    decoration:
+                        BoxDecoration(color: Color.fromRGBO(0, 30, 96, 1)),
+                  ),
                 ),
                 ListTile(
                   title: Text('About'),

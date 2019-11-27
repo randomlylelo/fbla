@@ -49,6 +49,7 @@ flutter:
     - lib/assets/images/image.jpg
     - lib/assets/images/fbla.png
     - lib/assets/images/manageLogo.png
+    - lib/assets/images/background.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -67,6 +68,7 @@ flutter:
         - asset: lib/assets/fonts/Raleway-Black.ttf
         - asset: lib/assets/fonts/Raleway-BlackItalic.ttf
         - asset: lib/assets/fonts/Raleway-Bold.ttf
+          weight: 700
         - asset: lib/assets/fonts/Raleway-BoldItalic.ttf
         - asset: lib/assets/fonts/Raleway-ExtraBold.ttf
         - asset: lib/assets/fonts/Raleway-ExtraBoldItalic.ttf
