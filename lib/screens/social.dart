@@ -24,7 +24,6 @@ class Social extends StatelessWidget {
         title: Text(title),
       ),
       body: Container(
-        color: Colors.blueAccent,
         padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
@@ -32,60 +31,80 @@ class Social extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.center,
                     child: Text(
                       'Offical Websites:',
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                   ),
-                  Divider(),
                   Container(
-                    alignment: Alignment.topRight,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: Text(
-                            'Mater Lakes Academy\'s FBLA website',
-                            style: TextStyle(color: Colors.white),
+                    alignment: Alignment.center,
+                    child: Card(
+                      color: Color.fromRGBO(0, 30, 96, 1),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Mater Lakes Academy\'s FBLA website',
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: RaisedButton(
-                            elevation: 0,
-                            child: Text('Visit'),
-                            onPressed: () => _launchURL('https://www.materlakes.org/apps/pages/index.jsp?uREC_ID=106549&type=d&termREC_ID=&pREC_ID=staff'),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                            alignment: Alignment.topRight,
+                            child: RaisedButton(
+                              elevation: 0,
+                              color: Color.fromRGBO(0, 173, 230, 1),
+                              child: Text(
+                                'Visit',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              onPressed: () => _launchURL(
+                                  'https://www.materlakes.org/apps/pages/index.jsp?uREC_ID=106549&type=d&termREC_ID=&pREC_ID=staff'),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                  Divider(),
-                  Container(
-                    alignment: Alignment.topRight,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: Text(
-                            'Offical FBLA Website',
-                            style: TextStyle(color: Colors.white),
+                  Card(
+                    color: Color.fromRGBO(0, 173, 230, 1),
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Offical FBLA Website',
+                              style: TextStyle(fontSize: 17),
+                            ),
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          child: RaisedButton(
-                            elevation: 0,
-                            child: Text('Visit'),
-                            onPressed: () => _launchURL('https://www.fbla-pbl.org/'),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                            alignment: Alignment.topRight,
+                            child: RaisedButton(
+                              elevation: 0,
+                              color: Color.fromRGBO(0, 30, 96, 1),
+                              child: Text('Visit', style: TextStyle(color: Colors.white),),
+                              onPressed: () =>
+                                  _launchURL('https://www.fbla-pbl.org/'),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -111,7 +130,7 @@ class Social extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         //padding: EdgeInsets.all(12),
-        color: Colors.blue,
+        color: Color.fromRGBO(0, 173, 230, 1),
         child: Row(
           children: <Widget>[
             ButtonTheme(
