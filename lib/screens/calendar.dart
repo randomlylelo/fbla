@@ -170,9 +170,9 @@ class _CalendarState extends State<Calendar> {
     return TableCalendar(
       events: _events,
       calendarStyle: CalendarStyle(
-        todayColor: Colors.red,
-        selectedColor: Colors.orange,
-        markersColor: Colors.black,
+        todayColor: Color.fromRGBO(191, 13, 62, 1),
+        selectedColor: Color.fromRGBO(0, 173, 230, 1),
+        markersColor: Color.fromRGBO(0, 51, 160, 1),
         canEventMarkersOverflow: false,
       ),
       calendarController: _calendarController,
@@ -276,6 +276,7 @@ class _FloatingActionButtState extends State<FloatingActionButt>
         ..add(
           FloatingActionButton(
             heroTag: null,
+            backgroundColor: Color.fromRGBO(0, 173, 230, 1),
             child: AnimatedBuilder(
               animation: _controller,
               builder: (BuildContext context, Widget child) {
@@ -283,9 +284,12 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                   transform:
                       Matrix4.rotationZ(_controller.value * 1.0 * math.pi),
                   alignment: FractionalOffset.center,
-                  child: Icon(_controller.isDismissed
-                      ? Icons.arrow_drop_up
-                      : Icons.arrow_drop_up),
+                  child: Icon(
+                    _controller.isDismissed
+                        ? Icons.arrow_upward
+                        : Icons.arrow_upward,
+                    color: Colors.white,
+                  ),
                 );
               },
             ),

@@ -150,6 +150,7 @@ class _AttendenceState extends State<Attendence> {
         tooltip: 'Add Members/Meeting Dates',
         child: Icon(
           _addStudents ? Icons.close : Icons.add,
+          color: Colors.white,
         ), // if addstudents is true then show close button, else show add.
       ),
     );
