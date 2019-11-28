@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // Widget used to display all the events
 class AllEvent extends StatelessWidget {
@@ -22,6 +23,9 @@ class AllEvent extends StatelessWidget {
   }
 
   Widget _iconCheck(String event) {
+    if (event.contains('Monthly')) {
+      event = event.substring(0, 7);
+    }
     if (_iconsMap.containsKey(event)) {
       return Container(
         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -33,11 +37,13 @@ class AllEvent extends StatelessWidget {
 
   Widget _tileBuild(BuildContext context) {
     var _listTest = _events.values.toList();
-    var _list = _listTest.expand((list) => list).toList(); // Flattens the list.
+    // var _list = _listTest.expand((list) => list).toList(); // Flattens the list.
+    var _reversed = _events.map((k, v) => MapEntry(v, k));
+    // var _datesTest = _reversed.values.toList();
 
     return Expanded(
       child: ListView(
-        children: _list
+        children: _listTest
             .map(
               (event) => Container(
                 margin:
@@ -50,18 +56,26 @@ class AllEvent extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Row(
                           children: <Widget>[
-                            _iconCheck(event),
-                            Container(
-                              child: Text(
-                                event.toString(),
-                                style: TextStyle(fontSize: 15.0),
+                            _iconCheck(event.join(', ')),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                  event.join(', '),
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                        child: Text('Date: ' +
+                            DateFormat('yyyy-MM-dd').format(_reversed[event])),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
                         alignment: Alignment.bottomRight,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -70,7 +84,9 @@ class AllEvent extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('form');
+                              },
                               child: Text(
                                 'Join Event',
                                 style: TextStyle(

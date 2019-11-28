@@ -92,7 +92,7 @@ class _AdminState extends State<Admin> {
                 controller: _passwordFilter,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(Icons.vpn_key),
                 ),
                 obscureText: true,
               ),

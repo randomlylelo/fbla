@@ -41,6 +41,8 @@ Map<DateTime, List> _events = {
 
 Map<String, IconData> _iconsMap = {
   'Monthly Meeting': Icons.group,
+  'Monthly': Icons.group,
+  'monthly': Icons.group,
 };
 
 class Calendar extends StatefulWidget {
