@@ -2,6 +2,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:fbla/widgets/help.dart';
 // Links to Social Media
 
 class Social extends StatelessWidget {
@@ -22,9 +23,12 @@ class Social extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[
+          Help('This page is used for links for to FBLA Social Media and website, contains FBLA Chapter links', 'To use this page, all you have to do press on the buttons \'Visit\' and for the social media, all you have to press is the selected social media icons.'),
+        ],
       ),
       body: Container(
-        color: Color.fromRGBO(0, 51, 160, 1),
+        color: Color.fromRGBO(0, 51, 160, .7),
         padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[

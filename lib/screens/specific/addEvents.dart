@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:fbla/widgets/help.dart';
+
 class AddEvent extends StatefulWidget {
   final Map<DateTime, List> events;
   final Map<String, IconData> icons;
@@ -142,6 +144,12 @@ class _AddEventState extends State<AddEvent> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Events'),
+        actions: <Widget>[
+          Help(
+            'This page is used to add events to the calendar.',
+            'To use this page, all you have to do is press on the date and then choose your date and then type in the event name, then press send on your keyboard or the button to the left.',
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[

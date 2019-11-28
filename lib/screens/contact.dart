@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-// Contact Us.\
+import 'package:fbla/widgets/help.dart';
 
-// https://medium.com/flutterpub/a-simple-login-page-in-flutter-c2c65bb57072
+// Contact Us.
 
 class Contact extends StatefulWidget {
   final String title;
@@ -91,6 +91,12 @@ class _ContactState extends State<Contact> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          Help(
+            'This page is used to contact the developers of the app but also to message the officers/advisors of their school\'s respective chapters.',
+            'In order to use this, all you have to do is to press the textboxes and fill in the necessary information, then you click \'SUMBIT\'.',
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[
@@ -148,7 +154,6 @@ class _ContactState extends State<Contact> {
                             prefixIcon: Icon(Icons.message),
                             border: OutlineInputBorder(),
                           ),
-                          
                         ),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:fbla/widgets/help.dart';
 // Q & A
 
 // Using Expansion Tile Class for Q&A.
@@ -25,6 +26,7 @@ class _QuestionState extends State<Question> {
         title: Text(q),
         children: <Widget>[
           Container(
+            alignment: Alignment.topLeft,
             padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
             child: Text(a),
           ),
@@ -38,6 +40,9 @@ class _QuestionState extends State<Question> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          Help('A questions and answer page, the answers are hidden until you want to see it.', 'In order to use this page, you must press the question or press the button on the side of the question in order to open the question and see the answer.'),
+        ],
       ),
       body: ListView(
         children: <Widget>[

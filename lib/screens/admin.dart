@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fbla/widgets/all.dart' as globals;
+import 'package:fbla/widgets/global.dart' as globals;
+
+import 'package:fbla/widgets/help.dart';
 
 class Admin extends StatefulWidget {
   @override
@@ -59,6 +61,12 @@ class _AdminState extends State<Admin> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Please Login!'),
+        actions: <Widget>[
+          Help(
+            'This is a login page for the officers and advisors of the FBLA Chapter.',
+            'To use this page all you have to do is type in your email and password, if you don\'t have account or forgot your password click the respective buttons. ',
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),

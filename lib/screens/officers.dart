@@ -53,7 +53,7 @@ class Officers extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
-          Help('This page shows Mater Lakes Academy\'s local FBLA Officer Team, on each of the cards, it shows a picture with their name and position ')
+          Help('This page shows Mater Lakes Academy\'s local FBLA Officer Team, on each of the cards, it shows a picture with their name and position.', 'In order to use this page, all you have to do is swipe left.')
         ],
       ),
       body: Center(

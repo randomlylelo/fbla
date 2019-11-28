@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:fbla/widgets/help.dart';
+
 // track chapter meeting attendence
 
 class Attendence extends StatefulWidget {
@@ -13,7 +15,6 @@ class Attendence extends StatefulWidget {
 }
 
 class _AttendenceState extends State<Attendence> {
-
   // Date & Time
   String _monDayYear = DateFormat('EEE d, MMM yyyy').format(DateTime.now());
 
@@ -58,7 +59,9 @@ class _AttendenceState extends State<Attendence> {
                       if (!(_inputFilter.text == '')) {
                         _students.add(_inputFilter.text);
                         _studentVal.add(false);
-                        Future.delayed(Duration(milliseconds: 50)).then((_){ _inputFilter.clear();});
+                        Future.delayed(Duration(milliseconds: 50)).then((_) {
+                          _inputFilter.clear();
+                        });
                         setState(() {});
                       }
                     },
@@ -125,6 +128,12 @@ class _AttendenceState extends State<Attendence> {
     return new Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          Help(
+            'This page is used to track attendence of the members, also you could add members to the attendence sheet.',
+            'To use this page, you click on the side buttons of the people\'s name to mark that they are present and then use floating button to change the page to show a add members section, to add members all you have to do type their name and then press send on your keyboard or the button to the left.',
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -157,7 +166,7 @@ class _AttendenceState extends State<Attendence> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     // Cleaning up Controller.
     _inputFilter.dispose();
     super.dispose();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:fbla/widgets/help.dart';
 // Join FBLA Form Screen
 
 class JoinForm extends StatefulWidget {
@@ -77,6 +78,12 @@ class _JoinFormState extends State<JoinForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          Help(
+            'This is a form that new members will fill out to join the FBLA Chapter of that school.',
+            'To use this page, all you have to do is to fill out the text fields and then press \'SUMBIT\'',
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[

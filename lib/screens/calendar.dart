@@ -5,6 +5,7 @@ import 'dart:math' as math;
 // File imports
 import 'package:fbla/screens/specific/addEvents.dart';
 import 'package:fbla/screens/specific/allEvents.dart';
+import 'package:fbla/widgets/help.dart';
 
 // Calendar & Links to FBLA website
 // Competitive Events & Current Events
@@ -153,6 +154,9 @@ class _CalendarState extends State<Calendar> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          Help('This page contains the calendar and events.','To use this page all you have to do is press any day, and if there is any events that day they will show it. There is a floating button to add events and view all events.'),
+        ],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,

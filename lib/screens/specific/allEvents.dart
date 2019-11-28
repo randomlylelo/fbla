@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:fbla/widgets/help.dart';
 
 // Widget used to display all the events
 class AllEvent extends StatelessWidget {
@@ -13,6 +14,9 @@ class AllEvent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('All Events'),
+        actions: <Widget>[
+          Help('This page contains all the events that is happening. Current events, competition events, and signups to the event.','To use this page, all you have to do is scroll, and if you see an event that you want you press \'Join Event\'.'),
+        ],
       ),
       body: Column(
         children: <Widget>[
