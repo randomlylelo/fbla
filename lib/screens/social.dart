@@ -24,6 +24,7 @@ class Social extends StatelessWidget {
         title: Text(title),
       ),
       body: Container(
+        color: Color.fromRGBO(0, 51, 160, 1),
         padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
@@ -37,7 +38,7 @@ class Social extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Color.fromRGBO(255, 255, 255, 0.9),
                       ),
                     ),
                   ),

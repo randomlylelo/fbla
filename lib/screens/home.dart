@@ -5,7 +5,7 @@ class Home extends StatelessWidget {
   Widget _createSubHeading(String text) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 5, 5, 2.5),
-      alignment: Alignment.topLeft,
+      alignment: Alignment.center,
       child: Text(
         text,
         style: TextStyle(
@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
   Widget _createBodyText(String text) {
     return Container(
       alignment: Alignment.topLeft,
-      padding: EdgeInsets.fromLTRB(35, 0, 0, 2.5),
+      padding: EdgeInsets.fromLTRB(5, 0, 2.5, 5),
       child: Text(
         text,
         style: TextStyle(fontSize: 17.5),
@@ -30,8 +30,9 @@ class Home extends StatelessWidget {
 
   Widget _createCard(String heading, String body) {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+      padding: EdgeInsets.fromLTRB(2.5, 0, 2.5, 5),
       child: Card(
+        color: Color.fromRGBO(0, 173, 230, 1),
         elevation: 5,
         child: Column(
           children: <Widget>[
@@ -80,6 +81,7 @@ class Home extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               Container(
+                color: Color.fromRGBO(0, 30, 96, 1),
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 child: Column(
                   children: <Widget>[
@@ -99,7 +101,10 @@ class Home extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                       child: Text(
                         'You have a chance to make a change within community, will you take it?',
-                        style: TextStyle(fontSize: 17.5),
+                        style: TextStyle(
+                          fontSize: 17.5,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     RaisedButton(
@@ -111,7 +116,9 @@ class Home extends StatelessWidget {
                           color: Color.fromRGBO(0, 30, 96, 1),
                         ),
                       ),
-                      onPressed: () { Navigator.of(context).pushNamed('joinHome'); },
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('joinHome');
+                      },
                     )
                   ],
                 ),

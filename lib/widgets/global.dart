@@ -1,5 +1,5 @@
 library fbla.globals;
 
-String name = '';
+String name = 'Student';
 String email = '';
 String password = '';

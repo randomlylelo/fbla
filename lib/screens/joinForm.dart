@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Join FBLA Form Screen
 
@@ -114,7 +115,7 @@ class _JoinFormState extends State<JoinForm> {
                     controller: _idFilter,
                     decoration: InputDecoration(
                       labelText: 'School ID',
-                      prefixIcon: Icon(Icons.school),
+                      prefixIcon: Icon(FontAwesomeIcons.addressCard),
                     ),
                   ),
                 ),
