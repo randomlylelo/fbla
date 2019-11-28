@@ -155,7 +155,10 @@ class _CalendarState extends State<Calendar> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          Help('This page contains the calendar and events.','To use this page all you have to do is press any day, and if there is any events that day they will show it. There is a floating button to add events and view all events.'),
+          Help(
+            'This page contains the calendar and events.',
+            'To use this page all you have to do is press any day, and if there is any events that day they will show it. There is a floating button to add events and view all events.',
+          ),
         ],
       ),
       body: Column(

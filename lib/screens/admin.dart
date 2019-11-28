@@ -8,6 +8,8 @@ class Admin extends StatefulWidget {
   State<StatefulWidget> createState() => _AdminState();
 }
 
+// TODO: Get data from servers / local files.
+
 enum Screen { login, register }
 
 class _AdminState extends State<Admin> {
@@ -158,19 +160,38 @@ class _AdminState extends State<Admin> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                AlertDialog dialog = AlertDialog(
-                  content: Text('Login Successful.'),
-                  actions: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            'home', ModalRoute.withName('home'));
-                      },
-                      child: Text('Okay'),
-                    ),
-                  ],
-                );
+                globals.email = _emailFilter.text;
+                globals.password = _passwordFilter.text;
+                AlertDialog dialog;
+                if (globals.isAccount(globals.email, globals.password)) {
+                  dialog = AlertDialog(
+                    content: Text('Login Successful.'),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          globals.name = globals.getUserName(
+                              globals.email, globals.password);
+                          Navigator.pop(context);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              'home', ModalRoute.withName('home'));
+                        },
+                        child: Text('Okay'),
+                      ),
+                    ],
+                  );
+                } else {
+                  dialog = AlertDialog(
+                    content: Text('Login Failed.'),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Okay'),
+                      ),
+                    ],
+                  );
+                }
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => dialog,
@@ -183,7 +204,23 @@ class _AdminState extends State<Admin> {
             ),
             FlatButton(
               child: Text('Forgot Password?'),
-              onPressed: () => _accPrint(),
+              onPressed: () {
+                AlertDialog dialog = AlertDialog(
+                  content: Text('A password request form was sent to the email that you had entered in the login form.'),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Okay'),
+                    ),
+                  ],
+                );
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => dialog,
+                );
+              },
             )
           ],
         ),
@@ -204,6 +241,10 @@ class _AdminState extends State<Admin> {
                   actions: <Widget>[
                     FlatButton(
                       onPressed: () {
+                        globals.email = _emailFilter.text;
+                        globals.password = _passwordFilter.text;
+                        globals.name = _nameFilter.text;
+                        _accPrint();
                         Navigator.pop(context);
                         Navigator.of(context).pushNamedAndRemoveUntil(
                             'home', ModalRoute.withName('home'));
