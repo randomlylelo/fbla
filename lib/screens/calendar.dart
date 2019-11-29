@@ -29,7 +29,7 @@ Map<DateTime, List> _events = {
   DateTime(2019, 12, 7): ['District Prejudge Events'],
   DateTime(2020, 1, 9): ['Monthly Meeting'],
   DateTime(2020, 2, 4): ['Monthly Meeting'],
-  // DateTime(2020, 1, 9): ['District Competitions'], // TODO: GET DATE
+  DateTime(2020, 1, 17): ['District Award Ceremony'],
   DateTime(2020, 3, 12): ['State Leadership Conference'],
   DateTime(2020, 3, 13): ['State Leadership Conference'],
   DateTime(2020, 3, 14): ['State Leadership Conference'],
