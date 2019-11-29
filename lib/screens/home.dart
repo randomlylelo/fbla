@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,
-            backgroundColor: Color.fromRGBO(0, 173, 230, 1),
+            backgroundColor: Color.fromRGBO(0, 30, 96, 1),
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 alignment: Alignment.bottomCenter,
@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
                   color: Color.fromRGBO(0, 30, 96, 1),
                   image: DecorationImage(
                     image: AssetImage('./lib/assets/images/background.jpg'),
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
