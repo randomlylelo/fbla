@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "688705554008",
+    "firebase_url": "https://fbla-19-20.firebaseio.com",
+    "project_id": "fbla-19-20",
+    "storage_bucket": "fbla-19-20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688705554008:android:6882df4f00e14672ffac2d",
+        "android_client_info": {
+          "package_name": "com.randomlylelo.fbla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688705554008-0ov5q1tfshc36a5uo6ibrrdod0oq06a8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-y7c7-udANX48J_YTopo1y2tQ2OQWXi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688705554008-0ov5q1tfshc36a5uo6ibrrdod0oq06a8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
