@@ -1,10 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:fbla/widgets/global.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fbla/widgets/global.dart' as globals;
 
 class Nav extends StatefulWidget {
   @override
   _NavState createState() => _NavState();
+}
+
+Widget _navBuilder(BuildContext context) {
+  if (globals.admin) {
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        ListTile(
+          title: Text('Attendence'),
+          leading: Icon(Icons.group),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('attendence');
+          },
+        ),
+        ListTile(
+          title: Text('Calendar'),
+          leading: Icon(FontAwesomeIcons.calendarAlt),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('calendar');
+          },
+        ),
+        ListTile(
+          title: Text('Contact'),
+          leading: Icon(Icons.mail),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('contact');
+          },
+        ),
+        ListTile(
+          title: Text('Officers'),
+          leading: Icon(Icons.supervised_user_circle),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('officers');
+          },
+        ),
+        ListTile(
+          title: Text('Questions'),
+          leading: Icon(Icons.question_answer),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('questions');
+          },
+        ),
+        ListTile(
+          title: Text('Social'),
+          leading: Icon(FontAwesomeIcons.hashtag),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('social');
+          },
+        ),
+      ],
+    );
+  }
+  return ListView(
+    padding: EdgeInsets.zero,
+    children: <Widget>[
+      ListTile(
+        title: Text('Calendar'),
+        leading: Icon(FontAwesomeIcons.calendarAlt),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('calendar');
+        },
+      ),
+      ListTile(
+        title: Text('Contact'),
+        leading: Icon(Icons.mail),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('contact');
+        },
+      ),
+      ListTile(
+        title: Text('Officers'),
+        leading: Icon(Icons.supervised_user_circle),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('officers');
+        },
+      ),
+      ListTile(
+        title: Text('Questions'),
+        leading: Icon(Icons.question_answer),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('questions');
+        },
+      ),
+      ListTile(
+        title: Text('Social'),
+        leading: Icon(FontAwesomeIcons.hashtag),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('social');
+        },
+      ),
+    ],
+  );
 }
 
 class _NavState extends State<Nav> {
@@ -51,65 +166,7 @@ class _NavState extends State<Nav> {
             ),
           ),
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                ListTile(
-                  title: Text('Attendence'),
-                  leading: Icon(Icons.group),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('attendence');
-                  },
-                ),
-                ListTile(
-                  title: Text('Calendar'),
-                  leading: Icon(FontAwesomeIcons.calendarAlt),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('calendar');
-                  },
-                ),
-                ListTile(
-                  title: Text('Contact'),
-                  leading: Icon(Icons.mail),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('contact');
-                  },
-                ),
-                ListTile(
-                  title: Text('Officers'),
-                  leading: Icon(Icons.supervised_user_circle),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('officers');
-                  },
-                ),
-                ListTile(
-                  title: Text('Questions'),
-                  leading: Icon(Icons.question_answer),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('questions');
-                  },
-                ),
-                ListTile(
-                  title: Text('Social'),
-                  leading: Icon(FontAwesomeIcons.hashtag),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('social');
-                  },
-                ),
-              ],
-            ),
+            child: _navBuilder(context),
           ),
           Divider(),
           ListTile(

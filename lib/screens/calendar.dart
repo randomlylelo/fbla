@@ -6,6 +6,7 @@ import 'dart:math' as math;
 import 'package:fbla/screens/specific/addEvents.dart';
 import 'package:fbla/screens/specific/allEvents.dart';
 import 'package:fbla/widgets/help.dart';
+import 'package:fbla/widgets/global.dart' as globals;
 
 // Calendar & Links to FBLA website
 // Competitive Events & Current Events
@@ -175,6 +176,7 @@ class _CalendarState extends State<Calendar> {
 
   Widget _tabCal() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       events: _events,
       calendarStyle: CalendarStyle(
         todayColor: Color.fromRGBO(191, 13, 62, 1),
@@ -203,13 +205,13 @@ class _FloatingActionButtState extends State<FloatingActionButt>
   AnimationController _controller;
 
   List<IconData> _icons = [
-    Icons.add,
     Icons.list,
+    Icons.add,
   ];
 
   List<String> _strItems = [
-    'Add Event',
     'All Events',
+    'Add Event',
   ];
 
   @override
@@ -219,6 +221,14 @@ class _FloatingActionButtState extends State<FloatingActionButt>
       vsync: this, // Ticker
       duration: const Duration(milliseconds: 100),
     );
+    if (!globals.admin) {
+      _strItems = [
+        'All Events',
+      ];
+      _icons = [
+        Icons.list,
+      ];
+    }
   }
 
   @override
@@ -233,7 +243,7 @@ class _FloatingActionButtState extends State<FloatingActionButt>
     Color foregroundColor = Theme.of(context).accentColor;
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(2, (int index) {
+      children: List.generate(_strItems.length, (int index) {
         Widget child = Container(
           height: 70.0,
           width: 150,
@@ -251,7 +261,7 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               icon: Icon(_icons[index]),
               label: Text(_strItems[index]),
               onPressed: () {
-                if (index == 0) {
+                if (index == 1) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -262,7 +272,7 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                       fullscreenDialog: true,
                     ),
                   );
-                } else if (index == 1) {
+                } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
