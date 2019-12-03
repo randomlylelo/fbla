@@ -3,6 +3,7 @@ library fbla.globals;
 String name = 'Student';
 String email = '';
 String password = '';
+bool admin = false;
 
 Map<String, Map<String, String>> accounts = {
   'johndoe@example.com': {'John Doe': 'johndoe123'},

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla/widgets/nav.dart';
+import 'package:fbla/widgets/global.dart' as globals;
 
 class Home extends StatelessWidget {
   Widget _createSubHeading(String text) {
@@ -44,6 +45,22 @@ class Home extends StatelessWidget {
     );
   }
 
+  Widget _admin(BuildContext context) {
+    if (!globals.admin) {
+      return FlatButton(
+        child: Text(
+          'ADMIN LOGIN',
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12,
+          ),
+        ),
+        onPressed: () => Navigator.of(context).pushNamed('admin'),
+      );
+    }
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,16 +83,7 @@ class Home extends StatelessWidget {
             ),
             expandedHeight: 200,
             actions: <Widget>[
-              FlatButton(
-                child: Text(
-                  'ADMIN LOGIN',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                  ),
-                ),
-                onPressed: () => Navigator.of(context).pushNamed('admin'),
-              ),
+              _admin(context),
             ],
           ),
           SliverList(

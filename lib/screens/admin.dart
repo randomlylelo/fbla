@@ -171,6 +171,7 @@ class _AdminState extends State<Admin> {
                         onPressed: () {
                           globals.name = globals.getUserName(
                               globals.email, globals.password);
+                          globals.admin = true;
                           Navigator.pop(context);
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               'home', ModalRoute.withName('home'));
