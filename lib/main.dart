@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fbla/screens/all.dart';
 import 'package:fbla/screens/specific/joinHome.dart';
-import 'package:fbla/services/auth.dart';
 
 // TODO: Add 'Hero' Class to all the appbars
 // TODO: Add splash screen as loading screen
@@ -45,7 +44,6 @@ class MyApp extends StatelessWidget {
 }
 
 class _SelectNav extends StatelessWidget {
-  final Auth _auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -65,13 +63,6 @@ class _SelectNav extends StatelessWidget {
                   FlatButton(
                     child: Text('Student'),
                     onPressed: () async {
-                      dynamic result = await _auth.signInStudent();
-                      if(result == null) {
-                        print('error');
-                      } else {
-                        print('signed in');
-                        print(result);
-                      }
                       Navigator.of(context).pushNamed('home');
                     },
                   ),
