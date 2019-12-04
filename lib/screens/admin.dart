@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fbla/widgets/global.dart' as globals;
 
 import 'package:fbla/widgets/help.dart';
+import 'package:fbla/db/database.dart';
 
 class Admin extends StatefulWidget {
   @override
@@ -24,27 +24,12 @@ class _AdminState extends State<Admin> {
   _AdminState() {
     // Email Listener
     _emailFilter.addListener(() {
-      if (_emailFilter.text.isEmpty) {
-        globals.email = '';
-      } else {
-        globals.email = _emailFilter.text;
-      }
     });
     // Name Listener
     _nameFilter.addListener(() {
-      if (_nameFilter.text.isEmpty) {
-        globals.name = '';
-      } else {
-        globals.name = _nameFilter.text;
-      }
     });
     // Password Listener
     _passwordFilter.addListener(() {
-      if (_passwordFilter.text.isEmpty) {
-        globals.password = '';
-      } else {
-        globals.password = _passwordFilter.text;
-      }
     });
   }
 
@@ -160,43 +145,43 @@ class _AdminState extends State<Admin> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                globals.email = _emailFilter.text;
-                globals.password = _passwordFilter.text;
-                AlertDialog dialog;
-                if (globals.isAccount(globals.email, globals.password)) {
-                  dialog = AlertDialog(
-                    content: Text('Login Successful.'),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          globals.name = globals.getUserName(
-                              globals.email, globals.password);
-                          globals.admin = true;
-                          Navigator.pop(context);
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              'home', ModalRoute.withName('home'));
-                        },
-                        child: Text('Okay'),
-                      ),
-                    ],
-                  );
-                } else {
-                  dialog = AlertDialog(
-                    content: Text('Login Failed.'),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Okay'),
-                      ),
-                    ],
-                  );
-                }
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => dialog,
-                );
+                // globals.email = _emailFilter.text;
+                // globals.password = _passwordFilter.text;
+                // AlertDialog dialog;
+                // if (globals.isAccount(globals.email, globals.password)) {
+                //   dialog = AlertDialog(
+                //     content: Text('Login Successful.'),
+                //     actions: <Widget>[
+                //       FlatButton(
+                //         onPressed: () {
+                //           globals.name = globals.getUserName(
+                //               globals.email, globals.password);
+                //           globals.admin = true;
+                //           Navigator.pop(context);
+                //           Navigator.of(context).pushNamedAndRemoveUntil(
+                //               'home', ModalRoute.withName('home'));
+                //         },
+                //         child: Text('Okay'),
+                //       ),
+                //     ],
+                //   );
+                // } else {
+                //   dialog = AlertDialog(
+                //     content: Text('Login Failed.'),
+                //     actions: <Widget>[
+                //       FlatButton(
+                //         onPressed: () {
+                //           Navigator.pop(context);
+                //         },
+                //         child: Text('Okay'),
+                //       ),
+                //     ],
+                //   );
+                // }
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) => dialog,
+                // );
               },
             ),
             FlatButton(
@@ -207,7 +192,8 @@ class _AdminState extends State<Admin> {
               child: Text('Forgot Password?'),
               onPressed: () {
                 AlertDialog dialog = AlertDialog(
-                  content: Text('A password request form was sent to the email that you had entered in the login form.'),
+                  content: Text(
+                      'A password request form was sent to the email that you had entered in the login form.'),
                   actions: <Widget>[
                     FlatButton(
                       onPressed: () {
@@ -236,24 +222,45 @@ class _AdminState extends State<Admin> {
                 'Create an Account',
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: () {
-                AlertDialog dialog = AlertDialog(
-                  content: Text('Account Created Successfully.'),
-                  actions: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        globals.email = _emailFilter.text;
-                        globals.password = _passwordFilter.text;
-                        globals.name = _nameFilter.text;
-                        _accPrint();
-                        Navigator.pop(context);
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            'home', ModalRoute.withName('home'));
-                      },
-                      child: Text('Okay'),
-                    ),
-                  ],
-                );
+              onPressed: () async {
+                bool exists = await Database().check(_emailFilter.text);
+                AlertDialog dialog;
+
+                if (!exists) {
+                  dialog = AlertDialog(
+                    content: Text('Account Created Successfully.'),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () async {
+                          try {
+                            await Database().register(_emailFilter.text,
+                                _nameFilter.text, _passwordFilter.text);
+                          } catch (e) {
+                            print(e);
+                          }
+                          Navigator.pop(context);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              'home', ModalRoute.withName('home'));
+                        },
+                        child: Text('Okay'),
+                      ),
+                    ],
+                  );
+                } else {
+                  dialog = AlertDialog(
+                    content: Text(
+                        'Email was previously registered, please use another email.'),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Okay'),
+                      ),
+                    ],
+                  );
+                }
+
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => dialog,
@@ -270,10 +277,12 @@ class _AdminState extends State<Admin> {
     }
   }
 
+  /*
   void _accPrint() {
     print(
         'Email: ${globals.email}, Password: ${globals.password}, Name: ${globals.name}');
   }
+  */
 
   @override
   void dispose() {

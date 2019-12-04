@@ -111,7 +111,7 @@ class Officers extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
                 child: Text(
-                  'The officers & advisors named with their position from top left to bottom right:',
+                  'The officers and advisor named with their position from top left to bottom right:',
                   style: TextStyle(fontSize: 20.0),
                 ),
               ),

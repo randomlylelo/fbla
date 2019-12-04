@@ -14,7 +14,7 @@ Widget _navBuilder(BuildContext context) {
       padding: EdgeInsets.zero,
       children: <Widget>[
         ListTile(
-          title: Text('Attendence'),
+          title: Text('Attendance'),
           leading: Icon(Icons.group),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
@@ -83,7 +83,7 @@ Widget _navBuilder(BuildContext context) {
         },
       ),
       ListTile(
-        title: Text('Contact'),
+        title: Text('Contact Us'),
         leading: Icon(Icons.mail),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
