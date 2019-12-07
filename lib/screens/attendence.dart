@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:fbla/widgets/help.dart';
+import 'package:fbla/db/attendenceDB.dart';
 
 // track chapter meeting attendence
 
@@ -17,6 +18,8 @@ class Attendence extends StatefulWidget {
 class _AttendenceState extends State<Attendence> {
   // Date & Time
   String _monDayYear = DateFormat('EEE d, MMM yyyy').format(DateTime.now());
+
+  List<Map<String, dynamic>> studentDB;
 
   // Variables
   bool _addStudents = false;
@@ -55,10 +58,13 @@ class _AttendenceState extends State<Attendence> {
                   helperText: 'Type in Student name then press the button',
                   labelText: 'Student Name',
                   suffixIcon: IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (!(_inputFilter.text == '')) {
                         _students.add(_inputFilter.text);
                         _studentVal.add(false);
+                        AttendenceDB().addStudent(_inputFilter.text);
+                        studentDB = await AttendenceDB().getStudents();
+                        print(studentDB[1]['name']);
                         Future.delayed(Duration(milliseconds: 50)).then((_) {
                           _inputFilter.clear();
                         });
