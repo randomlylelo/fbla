@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fbla/widgets/help.dart';
 import 'package:fbla/db/database.dart';
+import 'package:fbla/widgets/global.dart' as globals;
 
 class Admin extends StatefulWidget {
   @override
@@ -23,14 +24,11 @@ class _AdminState extends State<Admin> {
 
   _AdminState() {
     // Email Listener
-    _emailFilter.addListener(() {
-    });
+    _emailFilter.addListener(() {});
     // Name Listener
-    _nameFilter.addListener(() {
-    });
+    _nameFilter.addListener(() {});
     // Password Listener
-    _passwordFilter.addListener(() {
-    });
+    _passwordFilter.addListener(() {});
   }
 
   void _screenChange() {
@@ -144,44 +142,50 @@ class _AdminState extends State<Admin> {
                 'Login',
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: () {
-                // globals.email = _emailFilter.text;
-                // globals.password = _passwordFilter.text;
-                // AlertDialog dialog;
-                // if (globals.isAccount(globals.email, globals.password)) {
-                //   dialog = AlertDialog(
-                //     content: Text('Login Successful.'),
-                //     actions: <Widget>[
-                //       FlatButton(
-                //         onPressed: () {
-                //           globals.name = globals.getUserName(
-                //               globals.email, globals.password);
-                //           globals.admin = true;
-                //           Navigator.pop(context);
-                //           Navigator.of(context).pushNamedAndRemoveUntil(
-                //               'home', ModalRoute.withName('home'));
-                //         },
-                //         child: Text('Okay'),
-                //       ),
-                //     ],
-                //   );
-                // } else {
-                //   dialog = AlertDialog(
-                //     content: Text('Login Failed.'),
-                //     actions: <Widget>[
-                //       FlatButton(
-                //         onPressed: () {
-                //           Navigator.pop(context);
-                //         },
-                //         child: Text('Okay'),
-                //       ),
-                //     ],
-                //   );
-                // }
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context) => dialog,
-                // );
+              onPressed: () async {
+                AlertDialog dialog;
+                bool correct = false;
+                try {
+                  correct = await Database()
+                      .login(_emailFilter.text, _passwordFilter.text);
+                } catch (e) {
+                  print(e);
+                }
+
+                if (correct) {
+                  globals.name = await Database().getName(_emailFilter.text);
+                  globals.admin = true;
+                  dialog = AlertDialog(
+                    content: Text('Login Successful.'),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              'home', ModalRoute.withName('home'));
+                        },
+                        child: Text('Okay'),
+                      ),
+                    ],
+                  );
+                } else {
+                  dialog = AlertDialog(
+                    content: Text(
+                        'Login Failed. Please check that you entered the correct email or password. If you don\'t have a account, then please create one!'),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Okay'),
+                      ),
+                    ],
+                  );
+                }
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => dialog,
+                );
               },
             ),
             FlatButton(

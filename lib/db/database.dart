@@ -20,13 +20,21 @@ class Database {
     return true;
   }
 
-  Future login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
+    // return true if login successful else false
     final dummy = await loginCollection.document(email).get();
     dynamic data = dummy.data;
 
     if(password == data['password']) {
-      
+      return true;
+    } else {
+      return false;
     }
-    
+  }
+
+  Future<String> getName(String email) async {
+    final dummy = await loginCollection.document(email).get();
+    dynamic data = dummy.data;
+    return data['name'];
   }
 }
