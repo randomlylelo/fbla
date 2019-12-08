@@ -11,7 +11,7 @@ class Admin extends StatefulWidget {
 
 // TODO: Get data from servers / local files.
 
-enum Screen { login, register }
+enum Screen { login, register, loading }
 
 class _AdminState extends State<Admin> {
   // Declare Variables
@@ -43,6 +43,16 @@ class _AdminState extends State<Admin> {
 
   @override
   Widget build(BuildContext context) {
+    if(_form == Screen.loading) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Please Login!'),
+        ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Please Login!'),
@@ -227,6 +237,8 @@ class _AdminState extends State<Admin> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () async {
+                
+
                 bool exists = await Database().check(_emailFilter.text);
                 AlertDialog dialog;
 
@@ -242,6 +254,8 @@ class _AdminState extends State<Admin> {
                           } catch (e) {
                             print(e);
                           }
+                          globals.admin = true;
+                          globals.name = _nameFilter.text;
                           Navigator.pop(context);
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               'home', ModalRoute.withName('home'));
