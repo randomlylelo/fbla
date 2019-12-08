@@ -43,7 +43,7 @@ class _AdminState extends State<Admin> {
 
   @override
   Widget build(BuildContext context) {
-    if(_form == Screen.loading) {
+    if (_form == Screen.loading) {
       return Scaffold(
         appBar: AppBar(
           title: Text('Please Login!'),
@@ -155,6 +155,9 @@ class _AdminState extends State<Admin> {
               onPressed: () async {
                 AlertDialog dialog;
                 bool correct = false;
+                setState(() {
+                  _form = Screen.loading;
+                });
                 try {
                   correct = await Database()
                       .login(_emailFilter.text, _passwordFilter.text);
@@ -192,6 +195,9 @@ class _AdminState extends State<Admin> {
                     ],
                   );
                 }
+                setState(() {
+                  _form = Screen.login;
+                });
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => dialog,
@@ -237,8 +243,9 @@ class _AdminState extends State<Admin> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () async {
-                
-
+                setState(() {
+                  _form = Screen.loading;
+                });
                 bool exists = await Database().check(_emailFilter.text);
                 AlertDialog dialog;
 
@@ -278,6 +285,9 @@ class _AdminState extends State<Admin> {
                     ],
                   );
                 }
+                setState(() {
+                  _form = Screen.login;
+                });
 
                 showDialog(
                   context: context,
