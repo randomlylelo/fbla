@@ -9,8 +9,6 @@ class Admin extends StatefulWidget {
   State<StatefulWidget> createState() => _AdminState();
 }
 
-// TODO: Get data from servers / local files.
-
 enum Screen { login, register, loading }
 
 class _AdminState extends State<Admin> {
