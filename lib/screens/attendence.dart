@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:fbla/widgets/help.dart';
+import 'package:fbla/db/attendenceDB.dart';
 
 // track chapter meeting attendence
 
@@ -17,6 +18,34 @@ class Attendence extends StatefulWidget {
 class _AttendenceState extends State<Attendence> {
   // Date & Time
   String _monDayYear = DateFormat('EEE d, MMM yyyy').format(DateTime.now());
+
+  List<Map<String, dynamic>> studentDB;
+  var loaded;
+
+  @override
+  void initState() {
+    super.initState();
+    () async {
+      try {
+        studentDB = await AttendenceDB().getStudents();
+      } catch (e) {
+        print(e);
+      }
+    }()
+        .whenComplete(() {
+      setState(() {
+        loaded = true;
+      });
+    });
+  }
+
+  void setUpDB() async {
+    try {
+      studentDB = await AttendenceDB().getStudents();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   // Variables
   bool _addStudents = false;
@@ -44,9 +73,13 @@ class _AttendenceState extends State<Attendence> {
                 controller: _inputFilter,
                 onSubmitted: (text) {
                   if (!(text == '')) {
-                    _students.add(text);
+                    _students.add(_inputFilter.text);
                     _studentVal.add(false);
-                    _inputFilter.clear();
+                    AttendenceDB().addStudent(_inputFilter.text);
+                    setUpDB();
+                    Future.delayed(Duration(milliseconds: 50)).then((_) {
+                      _inputFilter.clear();
+                    });
                     setState(() {});
                   }
                 },
@@ -55,10 +88,12 @@ class _AttendenceState extends State<Attendence> {
                   helperText: 'Type in Student name then press the button',
                   labelText: 'Student Name',
                   suffixIcon: IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (!(_inputFilter.text == '')) {
                         _students.add(_inputFilter.text);
                         _studentVal.add(false);
+                        AttendenceDB().addStudent(_inputFilter.text);
+                        setUpDB();
                         Future.delayed(Duration(milliseconds: 50)).then((_) {
                           _inputFilter.clear();
                         });
@@ -76,19 +111,19 @@ class _AttendenceState extends State<Attendence> {
               // https://github.com/flutter/flutter/issues/18341
               child: ListView.builder(
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
-                itemCount: _students.length,
+                itemCount: studentDB.length,
                 itemBuilder: (BuildContext context, int i) {
                   return Row(
                     children: <Widget>[
                       Checkbox(
-                        value: _studentVal[i],
+                        value: studentDB[i]['present'],
                         onChanged: (bool value) {
                           setState(() {
-                            _studentVal[i] = value;
+                            studentDB[i]['present'] = value;
                           });
                         },
                       ),
-                      Text(_students[i]),
+                      Text(studentDB[i]['name']),
                     ],
                   );
                 },
@@ -99,23 +134,21 @@ class _AttendenceState extends State<Attendence> {
       );
     }
     return Expanded(
-      // You need this for listView to Work.
-      // https://github.com/flutter/flutter/issues/18341
       child: ListView.builder(
         padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-        itemCount: _students.length,
+        itemCount: studentDB.length,
         itemBuilder: (BuildContext context, int i) {
           return Row(
             children: <Widget>[
               Checkbox(
-                value: _studentVal[i],
+                value: studentDB[i]['present'],
                 onChanged: (bool value) {
                   setState(() {
-                    _studentVal[i] = value;
+                    studentDB[i]['present'] = value;
                   });
                 },
               ),
-              Text(_students[i]),
+              Text(studentDB[i]['name']),
             ],
           );
         },
@@ -125,7 +158,17 @@ class _AttendenceState extends State<Attendence> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    if (loaded == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[

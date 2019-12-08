@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
 }
 
 class _SelectNav extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +62,7 @@ class _SelectNav extends StatelessWidget {
                   Divider(),
                   FlatButton(
                     child: Text('Student'),
-                    onPressed: () {
+                    onPressed: () async {
                       Navigator.of(context).pushNamed('home');
                     },
                   ),

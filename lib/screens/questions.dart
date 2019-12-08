@@ -41,7 +41,9 @@ class _QuestionState extends State<Question> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          Help('A questions and answer page, the answers are hidden until you want to see it.', 'In order to use this page, you must press the question or press the button on the side of the question in order to open the question and see the answer.'),
+          Help(
+              'A questions and answer page, the answers are hidden until you want to see it.',
+              'In order to use this page, you must press the question or press the button on the side of the question in order to open the question and see the answer.'),
         ],
       ),
       body: ListView(
@@ -52,13 +54,22 @@ class _QuestionState extends State<Question> {
               child: Column(
                 children: <Widget>[
                   questions('Why should I join FBLA?',
-                      'FBLA suits your needs as a businessperson in practice. Whether it be entrepreneurial,finance related or something similar, you will be able to practice your formality, speech, and learn more about the necessities to become successful in your future.'),
+                      'FBLA suits your needs as a business person in practice. Whether it be entrepreneurial, finance related or something similar, you will be able to practice your formality, speech, and learn more about the necessities to become successful in your future.'),
                   Divider(),
-                  questions('How can I join FBLA?', 'Students have the chance to join FBLA during the first two months of each school year. During this time, there will be forms passed out at the annual club fair. If you are not able to make it to this event, you may pass by the advisor\'s classroom to pick up your form.'),
+                  questions('How can I join FBLA?',
+                      'Students have the chance to join FBLA during the first two months of each school year. During this time, there will be forms passed out at the annual club fair. If you are not able to make it to this event, you may pass by the advisor\'s classroom to pick up your form or sign up using the form on the sign-up page.'),
                   Divider(),
-                  questions('What do I do in FBLA?', 'You will be assigned to a project of your choice. This project may either be a competition, presentation, or prejudged project. If you do choose a competition, you will have packets that will allow you to study for your date assigned. If you decide to have a presentation, you will have to write a speech, and practice your presentation before your assigned date of presentation. If you decide to do a prejudged project, you will have to work on a project depending on which you are assigned to and will be have frequent checkups until your deadline date.'),
+                  questions('What do I do in FBLA?',
+                      'You will be assigned to a project of your choice. This project may either be a competition, presentation, or prejudged project. If you do choose a competition, you will have packets that will allow you to study for your date assigned. If you decide to have a presentation, you will have to write a speech, and practice your presentation before your assigned date of presentation. If you decide to do a prejudged project, you will have to work on a project depending on which you are assigned to and will be have frequent checkups until your deadline date.'),
                   Divider(),
-                  questions('When can I see when my project is due?', 'Please refer to our calendar page'),
+                  questions('When can I see when my project is due?',
+                      'Please refer to our calendar page'),
+                  Divider(),
+                  Container(
+                    height: 10,
+                    width: 10,
+                  ),
+                  Text('For any other questions or concerns contacts us'),
                 ],
               ),
             ),

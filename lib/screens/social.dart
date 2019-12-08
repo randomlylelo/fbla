@@ -38,7 +38,7 @@ class Social extends StatelessWidget {
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      'Offical Websites:',
+                      'Official Websites:',
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class Social extends StatelessWidget {
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Offical FBLA Website',
+                              'Official FBLA Website',
                               style: TextStyle(fontSize: 17),
                             ),
                           ),

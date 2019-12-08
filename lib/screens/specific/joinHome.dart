@@ -1,3 +1,4 @@
+import 'package:fbla/db/membersDB.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,44 +19,12 @@ class _JoinHomeState extends State<JoinHome> {
   final TextEditingController _emailFilter = TextEditingController();
   final TextEditingController _nameFilter = TextEditingController();
   final TextEditingController _idFilter = TextEditingController();
-  String _email = '';
-  String _name = '';
-  String _id = '';
-
-  _JoinHomeState() {
-    _emailFilter.addListener(_emailListen);
-    _nameFilter.addListener(_nameListen);
-    _idFilter.addListener(_idListen);
-  }
-
-  // Listeners
-  void _emailListen() {
-    if (_emailFilter.text.isEmpty) {
-      _email = '';
-    } else {
-      _email = _emailFilter.text;
-    }
-  }
-
-  void _nameListen() {
-    if (_nameFilter.text.isEmpty) {
-      _name = '';
-    } else {
-      _name = _nameFilter.text;
-    }
-  }
-
-  void _idListen() {
-    if (_idFilter.text.isEmpty) {
-      _id = '';
-    } else {
-      _id = _nameFilter.text;
-    }
-  }
+  final TextEditingController _tshirtFilter = TextEditingController();
+  final TextEditingController _topicFilter = TextEditingController();
 
   void showAlert() {
     AlertDialog dialog = AlertDialog(
-      content: Text('Successfully Signed Up to the Event.'),
+      content: Text('Successfully Signed Up to FBLA.'),
       actions: <Widget>[
         FlatButton(
             onPressed: () {
@@ -65,12 +34,6 @@ class _JoinHomeState extends State<JoinHome> {
       ],
     );
     showDialog(context: context, builder: (BuildContext context) => dialog);
-  }
-
-  void displayMessage() {
-    print('Email: $_email');
-    print('Full Name: $_name');
-    print('School ID: $_id');
   }
 
   @override
@@ -121,8 +84,30 @@ class _JoinHomeState extends State<JoinHome> {
                   child: TextField(
                     controller: _idFilter,
                     decoration: InputDecoration(
-                      labelText: 'School ID',
-                      prefixIcon: Icon(FontAwesomeIcons.addressCard),
+                      labelText: 'Grade',
+                      prefixIcon: Icon(FontAwesomeIcons.graduationCap),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  child: TextField(
+                    controller: _tshirtFilter,
+                    decoration: InputDecoration(
+                      labelText: 'T-Shirt Size',
+                      prefixIcon: Icon(FontAwesomeIcons.tshirt),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  width: MediaQuery.of(context).size.width,
+                  child: TextField(
+                    controller: _topicFilter,
+                    decoration: InputDecoration(
+                      labelText: 'Topic',
+                      prefixIcon: Icon(Icons.subject),
                     ),
                   ),
                 ),
@@ -139,10 +124,13 @@ class _JoinHomeState extends State<JoinHome> {
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () {
+                          MembersDB().signUp(_emailFilter.text, _nameFilter.text, _idFilter.text, _tshirtFilter.text, _topicFilter.text);
                           showAlert();
                           _idFilter.clear();
                           _nameFilter.clear();
                           _emailFilter.clear();
+                          _topicFilter.clear();
+                          _tshirtFilter.clear();
                         },
                       ),
                     ],

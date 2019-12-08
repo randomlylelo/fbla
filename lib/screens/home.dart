@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla/widgets/nav.dart';
+import 'package:fbla/widgets/global.dart' as globals;
 
 class Home extends StatelessWidget {
   Widget _createSubHeading(String text) {
@@ -44,6 +45,22 @@ class Home extends StatelessWidget {
     );
   }
 
+  Widget _admin(BuildContext context) {
+    if (!globals.admin) {
+      return FlatButton(
+        child: Text(
+          'ADMIN LOGIN',
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12,
+          ),
+        ),
+        onPressed: () => Navigator.of(context).pushNamed('admin'),
+      );
+    }
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,16 +83,7 @@ class Home extends StatelessWidget {
             ),
             expandedHeight: 200,
             actions: <Widget>[
-              FlatButton(
-                child: Text(
-                  'ADMIN LOGIN',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                  ),
-                ),
-                onPressed: () => Navigator.of(context).pushNamed('admin'),
-              ),
+              _admin(context),
             ],
           ),
           SliverList(
@@ -90,17 +98,17 @@ class Home extends StatelessWidget {
                       'Future Business Leaders of America, also known as FBLA, is a high school association where students are brought forth a glimpse of having a career in business through means of competing and leadership.',
                     ),
                     _createCard(
-                      'How does the club work?',
-                      'Students in FBLA are the ones who run the club by not only taking on tasks done by business people but by having a sense of altruism and giving back to the community.',
+                      'How does this club work?',
+                      'Students in FBLA are the ones who run the club. By not only taking on tasks that are both challenging and rewarding to the student, you have the chance to give back to the community through a sense of altruism',
                     ),
                     _createCard(
-                      'What you will gain: ',
-                      'Through FBLA, students will gain skills vital in use for continuation of business. This means students will have the chance to practice their interpersonal skills through means of presentation, management, teamwork, formality, and more. They will be challenged by being placed in one subtopic out of over 60 competition events where they will pursue this and either present or demonstrate their skills in the end. Competitors will either be broken up by chapter, group, or work by themselves. Depending on your schools chapter, you may have the chance to tackle on community service projects, fundraisers, fields trips, and more.',
+                      'What you will gain?',
+                      'Through FBLA, students will gain skills vital in use for continuation of business. This means students will have the chance to practice their interpersonal skills through means of presentation, management, teamwork, formality, and more. Students will be entered in one of 60 competing events where they will put their skills to the test. Competitors will either be broken up by chapter, group, or work by themselves. Depending on your schools chapter, you may have the chance to tackle on community service projects, fundraisers, fields trips, and more.',
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                       child: Text(
-                        'You have a chance to make a change within community, will you take it?',
+                        'You have a chance to make a change within our community, will you take it?',
                         style: TextStyle(
                           fontSize: 17.5,
                           color: Colors.white,

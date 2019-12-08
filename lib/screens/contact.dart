@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:fbla/widgets/help.dart';
+import 'package:fbla/db/contactDB.dart';
 
 // Contact Us.
 
@@ -23,6 +23,7 @@ class _ContactState extends State<Contact> {
   String _name = '';
   String _id = '';
   String _message = "";
+  bool loading = false;
 
   _ContactState() {
     _emailFilter.addListener(_emailListen);
@@ -88,6 +89,16 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
+    if(loading) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Please Login!'),
+        ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -137,8 +148,8 @@ class _ContactState extends State<Contact> {
                         child: TextField(
                           controller: _idFilter,
                           decoration: InputDecoration(
-                            labelText: 'School ID',
-                            prefixIcon: Icon(FontAwesomeIcons.addressCard),
+                            labelText: 'Phone Number',
+                            prefixIcon: Icon(Icons.phone),
                           ),
                         ),
                       ),
@@ -170,7 +181,21 @@ class _ContactState extends State<Contact> {
                           'SUMBIT',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
+                          setState(() {
+                            loading = true;
+                          });
+                          String messageId =
+                              await ContactDB().getMessageId(_emailFilter.text);
+                          await ContactDB().sendMessage(
+                              messageId,
+                              _emailFilter.text,
+                              _nameFilter.text,
+                              _idFilter.text,
+                              _messageFilter.text);
+                          setState(() {
+                            loading = false;
+                          });
                           showAlert();
                           _idFilter.clear();
                           _nameFilter.clear();
