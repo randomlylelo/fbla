@@ -187,7 +187,6 @@ class _ContactState extends State<Contact> {
                           });
                           String messageId =
                               await ContactDB().getMessageId(_emailFilter.text);
-                          print(messageId);
                           await ContactDB().sendMessage(
                               messageId,
                               _emailFilter.text,

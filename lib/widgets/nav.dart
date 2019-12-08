@@ -32,7 +32,7 @@ Widget _navBuilder(BuildContext context) {
           },
         ),
         ListTile(
-          title: Text('Contact'),
+          title: Text('Contact Us'),
           leading: Icon(Icons.mail),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
@@ -50,7 +50,7 @@ Widget _navBuilder(BuildContext context) {
           },
         ),
         ListTile(
-          title: Text('Questions'),
+          title: Text('FAQ'),
           leading: Icon(Icons.question_answer),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
@@ -65,6 +65,15 @@ Widget _navBuilder(BuildContext context) {
           onTap: () {
             Navigator.pop(context);
             Navigator.of(context).pushNamed('social');
+          },
+        ),
+        ListTile(
+          title: Text('Sign-Up'),
+          leading: Icon(FontAwesomeIcons.signInAlt),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('joinHome');
           },
         ),
       ],
@@ -101,7 +110,7 @@ Widget _navBuilder(BuildContext context) {
         },
       ),
       ListTile(
-        title: Text('Questions'),
+        title: Text('FAQ'),
         leading: Icon(Icons.question_answer),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
@@ -111,11 +120,20 @@ Widget _navBuilder(BuildContext context) {
       ),
       ListTile(
         title: Text('Social'),
-        leading: Icon(FontAwesomeIcons.hashtag),
+        leading: Icon(FontAwesomeIcons.signInAlt),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
           Navigator.pop(context);
           Navigator.of(context).pushNamed('social');
+        },
+      ),
+      ListTile(
+        title: Text('Sign-Up'),
+        leading: Icon(FontAwesomeIcons.hashtag),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('joinHome');
         },
       ),
     ],
