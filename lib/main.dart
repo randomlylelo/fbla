@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
         // Part of Nav
         'attendence': (BuildContext context) => Attendence('Attendence'),
         'calendar': (BuildContext context) => Calendar('Calendar'),
-        'contact': (BuildContext context) => Contact('Contact'),
+        'contact': (BuildContext context) => Contact('Contact Us'),
         'form': (BuildContext context) => JoinForm('Form'),
         'officers': (BuildContext context) => Officers('Officers'),
-        'questions': (BuildContext context) => Question('Question'),
+        'questions': (BuildContext context) => Question('Q&A'),
         'social': (BuildContext context) => Social('Social Media'),
 
         // Part of Opening Screen
