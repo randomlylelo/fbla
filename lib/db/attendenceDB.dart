@@ -13,6 +13,18 @@ class AttendenceDB {
     });
   }
 
+  Future deleteStudent(String name) async {
+    return await attendenceCollection.document(name).delete();
+  }
+
+  Future updateStudent(String name, bool val) async {
+    bool val2 = !val;
+    return await attendenceCollection.document(name).setData({
+      'name': name,
+      'present': val2,
+    });
+  }
+
   Future getStudents() async {
     await attendenceCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((f) {

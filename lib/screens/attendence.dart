@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import 'package:fbla/widgets/help.dart';
@@ -39,7 +40,7 @@ class _AttendenceState extends State<Attendence> {
     });
   }
 
-  void setUpDB() async {
+  Future setUpDB() async {
     try {
       studentDB = await AttendenceDB().getStudents();
     } catch (e) {
@@ -50,15 +51,6 @@ class _AttendenceState extends State<Attendence> {
   // Variables
   bool _addStudents = false;
 
-  // Students
-  List<String> _students = [
-    'John Doe',
-    'Jane Doe',
-  ];
-  List<bool> _studentVal = [
-    false,
-    false,
-  ];
   // TextController
   final TextEditingController _inputFilter = TextEditingController();
 
@@ -71,15 +63,14 @@ class _AttendenceState extends State<Attendence> {
               padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextField(
                 controller: _inputFilter,
-                onSubmitted: (text) {
+                onSubmitted: (text) async {
                   if (!(text == '')) {
-                    _students.add(_inputFilter.text);
-                    _studentVal.add(false);
-                    AttendenceDB().addStudent(_inputFilter.text);
-                    setUpDB();
-                    Future.delayed(Duration(milliseconds: 50)).then((_) {
-                      _inputFilter.clear();
-                    });
+                    loaded = null;
+                    setState(() {});
+                    await AttendenceDB().addStudent(_inputFilter.text);
+                    await setUpDB();
+                    _inputFilter.clear();
+                    loaded = true;
                     setState(() {});
                   }
                 },
@@ -90,13 +81,14 @@ class _AttendenceState extends State<Attendence> {
                   suffixIcon: IconButton(
                     onPressed: () async {
                       if (!(_inputFilter.text == '')) {
-                        _students.add(_inputFilter.text);
-                        _studentVal.add(false);
-                        AttendenceDB().addStudent(_inputFilter.text);
-                        setUpDB();
+                        loaded = null;
+                        setState(() {});
+                        await AttendenceDB().addStudent(_inputFilter.text);
+                        await setUpDB();
                         Future.delayed(Duration(milliseconds: 50)).then((_) {
                           _inputFilter.clear();
                         });
+                        loaded = true;
                         setState(() {});
                       }
                     },
@@ -117,13 +109,30 @@ class _AttendenceState extends State<Attendence> {
                     children: <Widget>[
                       Checkbox(
                         value: studentDB[i]['present'],
-                        onChanged: (bool value) {
+                        onChanged: (bool value) async {
+                          loaded = null;
+                          setState(() {});
+                          await AttendenceDB().updateStudent(studentDB[i]['name'], value);
+                          loaded = true;
                           setState(() {
                             studentDB[i]['present'] = value;
                           });
                         },
                       ),
                       Text(studentDB[i]['name']),
+                      Spacer(),
+                      IconButton(
+                        icon: Icon(FontAwesomeIcons.trash),
+                        onPressed: () async {
+                          loaded = null;
+                          setState(() {});
+                          await AttendenceDB()
+                              .deleteStudent(studentDB[i]['name']);
+                          await setUpDB();
+                          loaded = true;
+                          setState(() {});
+                        },
+                      ),
                     ],
                   );
                 },
@@ -142,7 +151,11 @@ class _AttendenceState extends State<Attendence> {
             children: <Widget>[
               Checkbox(
                 value: studentDB[i]['present'],
-                onChanged: (bool value) {
+                onChanged: (bool value) async {
+                  loaded = null;
+                  setState(() {});
+                  await AttendenceDB().updateStudent(studentDB[i]['name'], value);
+                  loaded = true;
                   setState(() {
                     studentDB[i]['present'] = value;
                   });

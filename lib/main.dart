@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: _SelectNav(),
+      home: SchoolNav(),
       theme: ThemeData(
         fontFamily: 'RaleWay',
         primaryColor: Color.fromRGBO(0, 30, 96, 1), // Offical Color
@@ -38,13 +38,106 @@ class MyApp extends StatelessWidget {
 
         // Part of home
         'joinHome': (BuildContext context) => JoinHome('Join FBLA!'),
+
+        // Part of Main
+        'selectNav': (BuildContext context) => _SelectNav(),
       },
     );
   }
 }
 
-class _SelectNav extends StatelessWidget {
+class SchoolNav extends StatefulWidget {
+  @override
+  _SchoolNavState createState() => _SchoolNavState();
+}
 
+class _SchoolNavState extends State<SchoolNav> {
+  String dropdownValue = 'Mater Lakes Academy High School';
+  double width, height;
+
+  @override
+  Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: height * .9,
+              width: width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Welcome! Please select your school.',
+                  ),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    elevation: 16,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    underline: Container(
+                      height: 2,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>[
+                      'Mater Lakes Academy High School',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  FlatButton(
+                    color: Theme.of(context).accentColor,
+                    child: Text(
+                      'SUMBIT',
+                      style: TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, 1),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('selectNav');
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: height * .05,
+              width: width,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Don\'t see your school?',
+                    ),
+                    Text(
+                      'Ask your sponsor to email us at FBLA.Manage@gmail.com',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SelectNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
