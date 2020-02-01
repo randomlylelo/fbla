@@ -124,7 +124,7 @@ class _SchoolNavState extends State<SchoolNav> {
                       'Don\'t see your school?',
                     ),
                     Text(
-                      'Ask your sponsor to email us at FBLA.Manage@gmail.com',
+                      'Ask your sponsor to email us at FBLAManage@gmail.com',
                     ),
                   ],
                 ),

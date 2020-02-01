@@ -4,7 +4,11 @@ class AttendenceDB {
   final CollectionReference attendenceCollection =
       Firestore.instance.collection('attendence');
 
+  final CollectionReference submitCollection =
+      Firestore.instance.collection('submitedAttendence');
+
   List<Map<String, dynamic>> students = [];
+  List<Map<String, dynamic>> students2 = [];
 
   Future addStudent(String name) async {
     return await attendenceCollection.document(name).setData({
@@ -18,10 +22,9 @@ class AttendenceDB {
   }
 
   Future updateStudent(String name, bool val) async {
-    bool val2 = !val;
     return await attendenceCollection.document(name).setData({
       'name': name,
-      'present': val2,
+      'present': val,
     });
   }
 
@@ -34,6 +37,27 @@ class AttendenceDB {
         });
       });
     });
+    return students;
+  }
+
+  Future submitAttendence(String date) async {
+    await attendenceCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) async {
+        students.add({
+          'name': f.data['name'],
+          'present': false,
+        });
+        students2.add({
+          'name': f.data['name'],
+          'present': f.data['present'],
+        });
+        await attendenceCollection.document(f.data['name']).setData({
+          'name': f.data['name'],
+          'present': false,
+        });
+      });
+    });
+    await submitCollection.document(date).setData({'attendence': students2});
     return students;
   }
 }

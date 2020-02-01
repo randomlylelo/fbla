@@ -198,6 +198,7 @@ class _AdminState extends State<Admin> {
                 });
                 showDialog(
                   context: context,
+                  barrierDismissible: false,
                   builder: (BuildContext context) => dialog,
                 );
               },
@@ -223,6 +224,7 @@ class _AdminState extends State<Admin> {
                 );
                 showDialog(
                   context: context,
+                  barrierDismissible: false,
                   builder: (BuildContext context) => dialog,
                 );
               },
@@ -289,6 +291,7 @@ class _AdminState extends State<Admin> {
 
                 showDialog(
                   context: context,
+                  barrierDismissible: false,
                   builder: (BuildContext context) => dialog,
                 );
               },
