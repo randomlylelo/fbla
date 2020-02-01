@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
 import 'package:fbla/widgets/help.dart';
 import 'package:fbla/db/attendenceDB.dart';
@@ -18,7 +17,7 @@ class Attendence extends StatefulWidget {
 
 class _AttendenceState extends State<Attendence> {
   // Date & Time
-  String _monDayYear = DateFormat('EEE d, MMM yyyy').format(DateTime.now());
+  DateTime _today = DateTime.now();
 
   List<Map<String, dynamic>> studentDB;
   var loaded;
@@ -112,7 +111,8 @@ class _AttendenceState extends State<Attendence> {
                         onChanged: (bool value) async {
                           loaded = null;
                           setState(() {});
-                          await AttendenceDB().updateStudent(studentDB[i]['name'], value);
+                          await AttendenceDB()
+                              .updateStudent(studentDB[i]['name'], value);
                           loaded = true;
                           setState(() {
                             studentDB[i]['present'] = value;
@@ -154,7 +154,8 @@ class _AttendenceState extends State<Attendence> {
                 onChanged: (bool value) async {
                   loaded = null;
                   setState(() {});
-                  await AttendenceDB().updateStudent(studentDB[i]['name'], value);
+                  await AttendenceDB()
+                      .updateStudent(studentDB[i]['name'], value);
                   loaded = true;
                   setState(() {
                     studentDB[i]['present'] = value;
@@ -194,14 +195,29 @@ class _AttendenceState extends State<Attendence> {
       body: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Text(
-              '$_monDayYear - Meeting Attendence',
+              '${_today.toLocal()}'.split(' ')[0] + ' - Meeting Attendence',
               style: TextStyle(
                 fontSize: 20.0,
               ),
             ),
             alignment: Alignment.center,
+          ),
+          RaisedButton(
+            onPressed: () async {
+              final DateTime _date = await showDatePicker(
+                  context: context,
+                  initialDate: _today,
+                  firstDate: DateTime(2019),
+                  lastDate: DateTime(2101));
+              if (_date != null && _date != _today)
+                setState(() {
+                  _today = _date;
+                });
+            },
+            child: Text('Pick date'),
+            elevation: 1,
           ),
           _addStuds(),
         ],
