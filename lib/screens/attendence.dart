@@ -204,21 +204,6 @@ class _AttendenceState extends State<Attendence> {
             ),
             alignment: Alignment.center,
           ),
-          RaisedButton(
-            onPressed: () async {
-              final DateTime _date = await showDatePicker(
-                  context: context,
-                  initialDate: _today,
-                  firstDate: DateTime(2019),
-                  lastDate: DateTime(2101));
-              if (_date != null && _date != _today)
-                setState(() {
-                  _today = _date;
-                });
-            },
-            child: Text('Pick date'),
-            elevation: 1,
-          ),
           _addStuds(),
         ],
       ),
