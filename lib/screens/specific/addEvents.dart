@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:fbla/db/eventsDB.dart';
 import 'package:fbla/widgets/help.dart';
 
 class AddEvent extends StatefulWidget {
@@ -65,10 +65,12 @@ class _AddEventState extends State<AddEvent> {
             if (_events[_date].isNotEmpty) {
               // If List has things inside
               _events[_date].add(_eventFilter.text); // Add the Text
+              EventDB().addEvent(_date, _events[_date]);
             } else {
               _events[_date] = [
                 _eventFilter.text
               ]; // Add the first item in list.
+              EventDB().addEvent(_date, _events[_date]);
             }
             _eventFilter.clear();
             Future.delayed(Duration(milliseconds: 200)).then((_) {
@@ -84,6 +86,7 @@ class _AddEventState extends State<AddEvent> {
           suffixIcon: IconButton(
             onPressed: () {
               if (!(_eventFilter.text == '')) {
+                EventDB().getEvents();
                 if (_events[_date] == null) {
                   // If Null
                   _events[_date] = []; // Create Empty List
@@ -91,10 +94,12 @@ class _AddEventState extends State<AddEvent> {
                 if (_events[_date].isNotEmpty) {
                   // If List has things inside
                   _events[_date].add(_eventFilter.text); // Add the Text
+                  EventDB().addEvent(_date, _events[_date]);
                 } else {
                   _events[_date] = [
                     _eventFilter.text
                   ]; // Add the first item in list.
+                  EventDB().addEvent(_date, _events[_date]);
                 }
                 Future.delayed(Duration(milliseconds: 50)).then((_) {
                   FocusScope.of(context).unfocus();

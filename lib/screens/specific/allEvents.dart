@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fbla/widgets/help.dart';
+import 'package:fbla/widgets/global.dart' as globals;
 
 // Widget used to display all the events
 class AllEvent extends StatelessWidget {
@@ -15,7 +16,9 @@ class AllEvent extends StatelessWidget {
       appBar: AppBar(
         title: Text('All Events'),
         actions: <Widget>[
-          Help('This page contains all the events that is happening. Current events, competition events, and signups to the event.','To use this page, all you have to do is scroll, and if you see an event that you want you press \'Join Event\'.'),
+          Help(
+              'This page contains all the events that is happening. Current events, competition events, and signups to the event.',
+              'To use this page, all you have to do is scroll, and if you see an event that you want you press \'Join Event\'.'),
         ],
       ),
       body: Column(
@@ -34,6 +37,23 @@ class AllEvent extends StatelessWidget {
       return Container(
         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Icon(_iconsMap[event]),
+      );
+    }
+    return Container();
+  }
+
+  Widget delEvent(BuildContext context) {
+    if (globals.admin) {
+      return FlatButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        onPressed: () {},
+        child: Text(
+          'Delete Event(s)',
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
       );
     }
     return Container();
@@ -64,7 +84,7 @@ class AllEvent extends StatelessWidget {
                             Expanded(
                               child: Container(
                                 child: Text(
-                                  event.join(', '),
+                                  event.join(', 1'),
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -84,6 +104,7 @@ class AllEvent extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+                            delEvent(context),
                             FlatButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
