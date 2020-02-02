@@ -26,6 +26,18 @@ class EventDB {
     });
   }
 
+  Future getFlatEvent(DateTime date, dynamic event) async {
+    List list2 = [];
+    dynamic dummmy =
+        await eventCollection.document(date.toString().split(' ')[0]).get();
+    for (int i = 0; i < dummmy['events'].length; i++) {
+      if (dummmy['events'][i] != event) {
+        list2.add(dummmy['events'][i]);
+      }
+    }
+    return list2;
+  }
+
   Future delEvent(DateTime date, dynamic event) async {
     List list2 = [];
     dynamic dummmy =

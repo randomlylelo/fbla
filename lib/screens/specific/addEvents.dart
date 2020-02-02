@@ -72,7 +72,7 @@ class _AddEventState extends State<AddEvent> {
             }
             _eventFilter.clear();
             Future.delayed(Duration(milliseconds: 200)).then((_) {
-              Navigator.of(context).popUntil(ModalRoute.withName('home'));
+              Navigator.of(context).pop();
             });
             setState(() {});
           }
@@ -105,7 +105,7 @@ class _AddEventState extends State<AddEvent> {
                   _eventFilter.clear();
                 });
                 Future.delayed(Duration(milliseconds: 200)).then((_) {
-                  Navigator.of(context).popUntil(ModalRoute.withName('home'));
+                  Navigator.of(context).pop();
                 });
                 setState(() {});
               }

@@ -25,6 +25,7 @@ Map<String, IconData> _iconsMap = {
 };
 
 DateTime tdy = DateTime.now();
+List test = [];
 
 class Calendar extends StatefulWidget {
   final String title;
@@ -128,8 +129,9 @@ class _CalendarState extends State<Calendar> {
       });
     });
     final _selectedDay = DateTime.now();
+    final _select2 = DateTime(_selectedDay.year, _selectedDay.month, _selectedDay.day, 0,0,0,0,0);
+    _selectedEvents = _events[_select2] ?? [];
     _calendarController = CalendarController();
-    _selectedEvents = _events[_selectedDay] ?? [];
   }
 
   @override
@@ -142,6 +144,7 @@ class _CalendarState extends State<Calendar> {
     setState(() {
       tdy = day;
       _selectedEvents = events;
+      test = _selectedEvents;
     });
   }
 
@@ -156,8 +159,7 @@ class _CalendarState extends State<Calendar> {
           _selectedEvents = await EventDB().delEvent(tdy, event);
           _events = await EventDB().getEvents();
           loaded = true;
-          setState(() {
-          });
+          setState(() {});
         },
         child: Text(
           'Delete Event',
@@ -199,7 +201,7 @@ class _CalendarState extends State<Calendar> {
           _itemCreator(),
         ],
       ),
-      floatingActionButton: FloatingActionButt(),
+      floatingActionButton: FloatingActionButt(this),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -226,6 +228,10 @@ class _CalendarState extends State<Calendar> {
 
 // * FLOATING ACTION WIDGET *
 class FloatingActionButt extends StatefulWidget {
+  final _CalendarState parent;
+
+  FloatingActionButt(this.parent);
+
   @override
   _FloatingActionButtState createState() => _FloatingActionButtState();
 }
@@ -290,9 +296,9 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               foregroundColor: foregroundColor,
               icon: Icon(_icons[index]),
               label: Text(_strItems[index]),
-              onPressed: () {
+              onPressed: () async {
                 if (index == 1) {
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AddEvent(
@@ -302,8 +308,16 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                       fullscreenDialog: true,
                     ),
                   );
+                  setState(() async {
+                    widget.parent.loaded = null;
+                    widget.parent.setState(() {});
+                    _events = await EventDB().getEvents();
+                    widget.parent._selectedEvents = await EventDB().getFlatEvent(tdy, test);
+                    widget.parent.loaded = true;
+                    widget.parent.setState(() {});
+                  });
                 } else if (index == 0) {
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AllEvent(
@@ -312,6 +326,14 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                       ),
                     ),
                   );
+                  setState(() async {
+                    widget.parent.loaded = null;
+                    widget.parent.setState(() {});
+                    _events = await EventDB().getEvents();
+                    widget.parent._selectedEvents = await EventDB().getFlatEvent(tdy, test);
+                    widget.parent.loaded = true;
+                    widget.parent.setState(() {});
+                  });
                 }
                 _controller.reverse();
               },
