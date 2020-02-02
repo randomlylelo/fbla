@@ -8,3 +8,4 @@ export 'package:fbla/screens/social.dart';
 export 'package:fbla/screens/home.dart';
 export 'package:fbla/screens/admin.dart';
 export 'package:fbla/screens/specific/addEvents.dart';
+export 'package:fbla/screens/bug.dart';

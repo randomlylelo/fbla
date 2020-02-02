@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         'officers': (BuildContext context) => Officers('Officers'),
         'questions': (BuildContext context) => Question('Q&A'),
         'social': (BuildContext context) => Social('Social Media'),
+        'bug': (BuildContext context) => Bug('Report Bugs!'),
 
         // Part of Opening Screen
         'home': (BuildContext context) => Home(),

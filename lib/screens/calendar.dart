@@ -118,6 +118,7 @@ class _CalendarState extends State<Calendar> {
     super.initState();
     () async {
       try {
+        // EventDB().updateEvents(); Use only when DB needs reseting
         _events = await EventDB().getEvents();
       } catch (e) {
         print(e);
