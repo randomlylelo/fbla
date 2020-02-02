@@ -6,10 +6,10 @@ import 'package:fbla/db/eventsDB.dart';
 import 'package:fbla/widgets/help.dart';
 
 class AddEvent extends StatefulWidget {
-  final Map<DateTime, List> events;
+  final Map<DateTime, List> events2;
   final Map<String, IconData> icons;
 
-  AddEvent(this.events, this.icons);
+  AddEvent(this.events2, this.icons);
 
   @override
   _AddEventState createState() => _AddEventState();
@@ -41,8 +41,10 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   void initState() {
-    _events = widget.events;
     super.initState();
+    () async {
+      _events = await EventDB().getEvents();
+    }();
   }
 
   @override
@@ -56,25 +58,21 @@ class _AddEventState extends State<AddEvent> {
       padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
       child: TextField(
         controller: _eventFilter,
-        onSubmitted: (text) {
+        onSubmitted: (text) async {
+          _events = await EventDB().getEvents();
           if (!(text == '')) {
-            if (_events[_date] == null) {
-              // If Null
-              _events[_date] = []; // Create Empty List
-            }
             if (_events[_date].isNotEmpty) {
-              // If List has things inside
-              _events[_date].add(_eventFilter.text); // Add the Text
-              EventDB().addEvent(_date, _events[_date]);
+              var list = _events[_date].toList();
+              list.add(_eventFilter.text); // Add the Text
+              EventDB().addEvent(_date, list);
             } else {
-              _events[_date] = [
-                _eventFilter.text
-              ]; // Add the first item in list.
-              EventDB().addEvent(_date, _events[_date]);
+              var list = _events[_date].toList();
+              list.add(_eventFilter.text); // Add the Text
+              EventDB().addEvent(_date, list);
             }
             _eventFilter.clear();
             Future.delayed(Duration(milliseconds: 200)).then((_) {
-              Navigator.of(context).pop();
+              Navigator.of(context).popUntil(ModalRoute.withName('home'));
             });
             setState(() {});
           }
@@ -84,7 +82,8 @@ class _AddEventState extends State<AddEvent> {
           helperText: 'Type in Event Name then press send',
           labelText: 'Event Name',
           suffixIcon: IconButton(
-            onPressed: () {
+            onPressed: () async {
+              _events = await EventDB().getEvents();
               if (!(_eventFilter.text == '')) {
                 EventDB().getEvents();
                 if (_events[_date] == null) {
@@ -93,20 +92,20 @@ class _AddEventState extends State<AddEvent> {
                 }
                 if (_events[_date].isNotEmpty) {
                   // If List has things inside
-                  _events[_date].add(_eventFilter.text); // Add the Text
-                  EventDB().addEvent(_date, _events[_date]);
+                  var list = _events[_date].toList();
+                  list.add(_eventFilter.text); // Add the Text
+                  EventDB().addEvent(_date, list);
                 } else {
-                  _events[_date] = [
-                    _eventFilter.text
-                  ]; // Add the first item in list.
-                  EventDB().addEvent(_date, _events[_date]);
+                  var list = _events[_date].toList();
+                  list.add(_eventFilter.text); // Add the Text
+                  EventDB().addEvent(_date, list);
                 }
                 Future.delayed(Duration(milliseconds: 50)).then((_) {
                   FocusScope.of(context).unfocus();
                   _eventFilter.clear();
                 });
                 Future.delayed(Duration(milliseconds: 200)).then((_) {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).popUntil(ModalRoute.withName('home'));
                 });
                 setState(() {});
               }

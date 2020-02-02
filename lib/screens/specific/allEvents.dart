@@ -1,17 +1,42 @@
+import 'package:fbla/db/eventsDB.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fbla/widgets/help.dart';
 import 'package:fbla/widgets/global.dart' as globals;
 
 // Widget used to display all the events
-class AllEvent extends StatelessWidget {
-  final Map<DateTime, List> _events;
+class AllEvent extends StatefulWidget {
+  final Map<DateTime, List> _eventss;
   final Map<String, IconData> _iconsMap;
 
-  AllEvent(this._events, this._iconsMap);
+  AllEvent(this._eventss, this._iconsMap);
 
   @override
+  _AllEventState createState() => _AllEventState();
+}
+
+class _AllEventState extends State<AllEvent> {
+  Map<DateTime, List> _events;
+  @override
+  void initState() {
+    super.initState();
+    _events = widget._eventss; 
+  }
+
+  var loaded = true;
+  @override
   Widget build(BuildContext context) {
+    
+    if (loaded == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('All Events'),
+        ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('All Events'),
@@ -33,23 +58,30 @@ class AllEvent extends StatelessWidget {
     if (event.contains('Monthly')) {
       event = event.substring(0, 7);
     }
-    if (_iconsMap.containsKey(event)) {
+    if (widget._iconsMap.containsKey(event)) {
       return Container(
         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-        child: Icon(_iconsMap[event]),
+        child: Icon(widget._iconsMap[event]),
       );
     }
     return Container();
   }
 
-  Widget delEvent(BuildContext context) {
+  Widget delEvent(BuildContext context, Map<List<dynamic>, DateTime> _reversed, List<dynamic> event) {
     if (globals.admin) {
       return FlatButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
-        onPressed: () {},
+        onPressed: () async {
+          loaded = null;
+          setState(() {});
+          await EventDB().delEvents(_reversed[event], event);
+          _events = await EventDB().getEvents();
+          loaded = true;
+          setState(() {});
+        },
         child: Text(
-          'Delete Event(s)',
+          'Delete Events',
           style: TextStyle(
             color: Theme.of(context).primaryColor,
           ),
@@ -62,7 +94,7 @@ class AllEvent extends StatelessWidget {
   Widget _tileBuild(BuildContext context) {
     var _listTest = _events.values.toList();
     // var _list = _listTest.expand((list) => list).toList(); // Flattens the list.
-    var _reversed = _events.map((k, v) => MapEntry(v, k));
+    Map<List<dynamic>, DateTime> _reversed = _events.map((k, v) => MapEntry(v, k));
     // var _datesTest = _reversed.values.toList();
 
     return Expanded(
@@ -104,7 +136,7 @@ class AllEvent extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            delEvent(context),
+                            delEvent(context, _reversed, event),
                             FlatButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:

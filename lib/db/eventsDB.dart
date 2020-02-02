@@ -28,26 +28,30 @@ class EventDB {
 
   Future delEvent(DateTime date, dynamic event) async {
     List list2 = [];
-    dynamic dummmy = await eventCollection.document(date.toString().split(' ')[0]).get();
-    for(int i = 0; i < dummmy['events'].length; i++) {
-      if(dummmy['events'][i] != event) {
+    dynamic dummmy =
+        await eventCollection.document(date.toString().split(' ')[0]).get();
+    for (int i = 0; i < dummmy['events'].length; i++) {
+      if (dummmy['events'][i] != event) {
         list2.add(dummmy['events'][i]);
       }
     }
-    await eventCollection
-        .document(date.toString().split(' ')[0])
-        .setData({
-      'date': date,
-      'events': list2,
-    });
+    if (list2.length == 0) {
+      await eventCollection.document(date.toString().split(' ')[0]).delete();
+    } else {
+      await eventCollection.document(date.toString().split(' ')[0]).setData({
+        'date': date,
+        'events': list2,
+      });
+    }
     return list2;
   }
 
-  Future delEvents() async {
-    
+  Future delEvents(DateTime date, dynamic event) async {
+    await eventCollection.document(date.toString().split(' ')[0]).delete();
   }
 
-  Map<DateTime, List> _events = { // Used for DB reseting
+  Map<DateTime, List> _events = {
+    // Used for DB reseting
     DateTime(2019, 11, 4): ['Monthly Meeting'],
     DateTime(2019, 11, 9): ['State Fall Leadership Conference'],
     DateTime(2019, 11, 10): ['State Fall Leadership Conference'],
@@ -73,7 +77,8 @@ class EventDB {
     DateTime(2020, 7, 2): ['National Leadership Conference'],
   };
 
-  void updateEvents() async { // Use only when DB need reseting
+  void updateEvents() async {
+    // Use only when DB need reseting
     _events.forEach((k, v) {
       eventCollection.document(k.toString().split(' ')[0]).setData({
         'date': k,
