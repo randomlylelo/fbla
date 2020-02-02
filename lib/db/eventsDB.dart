@@ -26,7 +26,26 @@ class EventDB {
     });
   }
 
-  // Future delEvent() {}
+  Future delEvent(DateTime date, dynamic event) async {
+    List list2 = [];
+    dynamic dummmy = await eventCollection.document(date.toString().split(' ')[0]).get();
+    for(int i = 0; i < dummmy['events'].length; i++) {
+      if(dummmy['events'][i] != event) {
+        list2.add(dummmy['events'][i]);
+      }
+    }
+    await eventCollection
+        .document(date.toString().split(' ')[0])
+        .setData({
+      'date': date,
+      'events': list2,
+    });
+    return list2;
+  }
+
+  Future delEvents() async {
+    
+  }
 
   Map<DateTime, List> _events = { // Used for DB reseting
     DateTime(2019, 11, 4): ['Monthly Meeting'],

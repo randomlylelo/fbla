@@ -24,6 +24,8 @@ Map<String, IconData> _iconsMap = {
   'monthly': Icons.group,
 };
 
+DateTime tdy = DateTime.now();
+
 class Calendar extends StatefulWidget {
   final String title;
 
@@ -80,6 +82,7 @@ class _CalendarState extends State<Calendar> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+                            delEvent(context, event),
                             FlatButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
@@ -106,7 +109,7 @@ class _CalendarState extends State<Calendar> {
       ),
     );
   }
-  
+
   var loaded;
 
   @override
@@ -137,8 +140,34 @@ class _CalendarState extends State<Calendar> {
 
   void _onDaySelected(DateTime day, List events) {
     setState(() {
+      tdy = day;
       _selectedEvents = events;
     });
+  }
+
+  Widget delEvent(BuildContext context, dynamic event) {
+    if (globals.admin) {
+      return FlatButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        onPressed: () async {
+          loaded = null;
+          setState(() {});
+          _selectedEvents = await EventDB().delEvent(tdy, event);
+          _events = await EventDB().getEvents();
+          loaded = true;
+          setState(() {
+          });
+        },
+        child: Text(
+          'Delete Event',
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+      );
+    }
+    return Container();
   }
 
   @override
