@@ -76,6 +76,15 @@ Widget _navBuilder(BuildContext context) {
             Navigator.of(context).pushNamed('joinHome');
           },
         ),
+        ListTile(
+          title: Text('Report Bugs'),
+          leading: Icon(Icons.bug_report),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('bug');
+          },
+        ),
       ],
     );
   }
@@ -134,6 +143,15 @@ Widget _navBuilder(BuildContext context) {
         onTap: () {
           Navigator.pop(context);
           Navigator.of(context).pushNamed('joinHome');
+        },
+      ),
+      ListTile(
+        title: Text('Report Bugs'),
+        leading: Icon(Icons.bug_report),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('bug');
         },
       ),
     ],

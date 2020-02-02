@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         'officers': (BuildContext context) => Officers('Officers'),
         'questions': (BuildContext context) => Question('Q&A'),
         'social': (BuildContext context) => Social('Social Media'),
+        'bug': (BuildContext context) => Bug('Report Bugs!'),
 
         // Part of Opening Screen
         'home': (BuildContext context) => Home(),
@@ -124,7 +125,7 @@ class _SchoolNavState extends State<SchoolNav> {
                       'Don\'t see your school?',
                     ),
                     Text(
-                      'Ask your sponsor to email us at FBLA.Manage@gmail.com',
+                      'Ask your sponsor to email us at FBLAManage@gmail.com',
                     ),
                   ],
                 ),

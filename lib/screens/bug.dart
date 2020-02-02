@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'package:fbla/db/bugDB.dart';
 import 'package:fbla/widgets/help.dart';
-import 'package:fbla/db/contactDB.dart';
-
 // Contact Us.
 
-class Contact extends StatefulWidget {
+class Bug extends StatefulWidget {
   final String title;
 
-  Contact(this.title);
+  Bug(this.title);
   @override
-  _ContactState createState() => _ContactState();
+  _BugState createState() => _BugState();
 }
 
-class _ContactState extends State<Contact> {
+class _BugState extends State<Bug> {
   // Declare Variables
   final TextEditingController _emailFilter = TextEditingController();
   final TextEditingController _nameFilter = TextEditingController();
-  final TextEditingController _idFilter = TextEditingController();
   final TextEditingController _messageFilter = TextEditingController();
   String _email = '';
   String _name = '';
-  String _id = '';
   String _message = "";
   bool loading = false;
 
-  _ContactState() {
+  _BugState() {
     _emailFilter.addListener(_emailListen);
     _nameFilter.addListener(_nameListen);
-    _idFilter.addListener(_idListen);
     _messageFilter.addListener(_messageListener);
   }
 
@@ -46,14 +42,6 @@ class _ContactState extends State<Contact> {
       _name = '';
     } else {
       _name = _nameFilter.text;
-    }
-  }
-
-  void _idListen() {
-    if (_idFilter.text.isEmpty) {
-      _id = '';
-    } else {
-      _id = _nameFilter.text;
     }
   }
 
@@ -83,7 +71,6 @@ class _ContactState extends State<Contact> {
   void displayMessage() {
     print('Email: $_email');
     print('Name: $_name');
-    print('Id: $_id');
     print('Message: $_message');
   }
 
@@ -104,7 +91,7 @@ class _ContactState extends State<Contact> {
         title: Text(widget.title),
         actions: <Widget>[
           Help(
-            'This page is used to contact the officers/advisors of their school\'s respective chapters.',
+            'This page is used to Bug the developers of the app but also to message the officers/advisors of their school\'s respective chapters.',
             'In order to use this, all you have to do is to press the textboxes and fill in the necessary information, then you click \'SUMBIT\'.',
           ),
         ],
@@ -146,17 +133,6 @@ class _ContactState extends State<Contact> {
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
-                          controller: _idFilter,
-                          decoration: InputDecoration(
-                            labelText: 'Phone Number',
-                            prefixIcon: Icon(Icons.phone),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        width: MediaQuery.of(context).size.width,
-                        child: TextField(
                           minLines: 3,
                           maxLines: null, // Infinity
                           controller: _messageFilter,
@@ -186,18 +162,16 @@ class _ContactState extends State<Contact> {
                             loading = true;
                           });
                           String messageId =
-                              await ContactDB().getMessageId(_emailFilter.text);
-                          await ContactDB().sendMessage(
+                              await BugDB().getMessageId(_emailFilter.text);
+                          await BugDB().sendMessage(
                               messageId,
                               _emailFilter.text,
                               _nameFilter.text,
-                              _idFilter.text,
                               _messageFilter.text);
                           setState(() {
                             loading = false;
                           });
                           showAlert();
-                          _idFilter.clear();
                           _nameFilter.clear();
                           _emailFilter.clear();
                           _messageFilter.clear();

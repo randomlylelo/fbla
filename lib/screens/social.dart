@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:fbla/widgets/help.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 // Links to Social Media
 
 class Social extends StatelessWidget {
@@ -24,7 +25,9 @@ class Social extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
-          Help('This page is used for links for to FBLA Social Media and website, contains FBLA Chapter links', 'To use this page, all you have to do press on the buttons \'Visit\' and for the social media, all you have to press is the selected social media icons.'),
+          Help(
+              'This page is used for links for to FBLA Social Media and website, contains FBLA Chapter links',
+              'To use this page, all you have to do press on the buttons \'Visit\' and for the social media, all you have to press is the selected social media icons.'),
         ],
       ),
       body: Container(
@@ -103,13 +106,22 @@ class Social extends StatelessWidget {
                             child: RaisedButton(
                               elevation: 0,
                               color: Color.fromRGBO(0, 30, 96, 1),
-                              child: Text('Visit', style: TextStyle(color: Colors.white),),
+                              child: Text(
+                                'Visit',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               onPressed: () =>
                                   _launchURL('https://www.fbla-pbl.org/'),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  Expanded(
+                    child: WebView(
+                      initialUrl: 'https://twitter.com/FBLA_National/',
+                      javascriptMode: JavascriptMode.disabled,
                     ),
                   ),
                 ],

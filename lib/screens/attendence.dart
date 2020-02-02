@@ -170,6 +170,39 @@ class _AttendenceState extends State<Attendence> {
     );
   }
 
+  Widget sumbitBut() {
+    return RaisedButton(
+      child: Text('Submit Attendence'),
+      onPressed: () async {
+        loaded = null;
+        setState(() {});
+        try {
+          studentDB = await AttendenceDB().submitAttendence('${_today.toLocal()}');
+        } catch (e) {
+          print(e);
+        }
+        loaded = true;
+        setState(() {});
+        AlertDialog dialog = AlertDialog(
+          content: Text('Attendence Submited Successfully.'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Okay'),
+            ),
+          ],
+        );
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => dialog,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loaded == null) {
@@ -204,6 +237,7 @@ class _AttendenceState extends State<Attendence> {
             ),
             alignment: Alignment.center,
           ),
+          sumbitBut(),
           _addStuds(),
         ],
       ),

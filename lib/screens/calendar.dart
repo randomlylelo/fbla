@@ -1,3 +1,4 @@
+import 'package:fbla/db/eventsDB.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:math' as math;
@@ -15,37 +16,16 @@ import 'package:fbla/widgets/global.dart' as globals;
 // form for either competitive event,
 // fundraiser, or community service.
 
-Map<DateTime, List> _events = {
-  DateTime(2019, 11, 4): ['Monthly Meeting'],
-  DateTime(2019, 11, 9): ['State Fall Leadership Conference'],
-  DateTime(2019, 11, 10): ['State Fall Leadership Conference'],
-  DateTime(2019, 11, 11): ['State Fall Leadership Conference'],
-  DateTime(2019, 11, 18): ['Prejudged Events Checkup'],
-  DateTime(2019, 11, 18): ['Prejudged Events Checkup'],
-  DateTime(2019, 11, 19): ['Prejudged Events Checkup'],
-  DateTime(2019, 11, 20): ['Prejudged Events Checkup'],
-  DateTime(2019, 11, 21): ['Prejudged Events Checkup'],
-  DateTime(2019, 11, 22): ['Prejudged Events Checkup'],
-  DateTime(2019, 12, 2): ['Monthly Meeting', 'Candy Box Fundrasing'],
-  DateTime(2019, 12, 7): ['District Prejudge Events'],
-  DateTime(2020, 1, 9): ['Monthly Meeting'],
-  DateTime(2020, 2, 4): ['Monthly Meeting'],
-  DateTime(2020, 1, 17): ['District Award Ceremony'],
-  DateTime(2020, 3, 12): ['State Leadership Conference'],
-  DateTime(2020, 3, 13): ['State Leadership Conference'],
-  DateTime(2020, 3, 14): ['State Leadership Conference'],
-  DateTime(2020, 3, 15): ['State Leadership Conference'],
-  DateTime(2020, 6, 29): ['National Leadership Conference'],
-  DateTime(2020, 6, 30): ['National Leadership Conference'],
-  DateTime(2020, 7, 1): ['National Leadership Conference'],
-  DateTime(2020, 7, 2): ['National Leadership Conference'],
-};
+Map<DateTime, List> _events = {};
 
 Map<String, IconData> _iconsMap = {
   'Monthly Meeting': Icons.group,
   'Monthly': Icons.group,
   'monthly': Icons.group,
 };
+
+DateTime tdy = DateTime.now();
+List test = [];
 
 class Calendar extends StatefulWidget {
   final String title;
@@ -103,6 +83,7 @@ class _CalendarState extends State<Calendar> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+                            delEvent(context, event),
                             FlatButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
@@ -130,12 +111,28 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
+  var loaded;
+
   @override
   void initState() {
     super.initState();
+    () async {
+      try {
+        // EventDB().updateEvents(); Use only when DB needs reseting
+        _events = await EventDB().getEvents();
+      } catch (e) {
+        print(e);
+      }
+    }()
+        .whenComplete(() {
+      setState(() {
+        loaded = true;
+      });
+    });
     final _selectedDay = DateTime.now();
+    final _select2 = DateTime(_selectedDay.year, _selectedDay.month, _selectedDay.day, 0,0,0,0,0);
+    _selectedEvents = _events[_select2] ?? [];
     _calendarController = CalendarController();
-    _selectedEvents = _events[_selectedDay] ?? [];
   }
 
   @override
@@ -146,12 +143,48 @@ class _CalendarState extends State<Calendar> {
 
   void _onDaySelected(DateTime day, List events) {
     setState(() {
+      tdy = day;
       _selectedEvents = events;
+      test = _selectedEvents;
     });
+  }
+
+  Widget delEvent(BuildContext context, dynamic event) {
+    if (globals.admin) {
+      return FlatButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        onPressed: () async {
+          loaded = null;
+          setState(() {});
+          _selectedEvents = await EventDB().delEvent(tdy, event);
+          _events = await EventDB().getEvents();
+          loaded = true;
+          setState(() {});
+        },
+        child: Text(
+          'Delete Event',
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+      );
+    }
+    return Container();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (loaded == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -169,7 +202,7 @@ class _CalendarState extends State<Calendar> {
           _itemCreator(),
         ],
       ),
-      floatingActionButton: FloatingActionButt(),
+      floatingActionButton: FloatingActionButt(this),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -196,6 +229,10 @@ class _CalendarState extends State<Calendar> {
 
 // * FLOATING ACTION WIDGET *
 class FloatingActionButt extends StatefulWidget {
+  final _CalendarState parent;
+
+  FloatingActionButt(this.parent);
+
   @override
   _FloatingActionButtState createState() => _FloatingActionButtState();
 }
@@ -260,9 +297,9 @@ class _FloatingActionButtState extends State<FloatingActionButt>
               foregroundColor: foregroundColor,
               icon: Icon(_icons[index]),
               label: Text(_strItems[index]),
-              onPressed: () {
+              onPressed: () async {
                 if (index == 1) {
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AddEvent(
@@ -272,8 +309,16 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                       fullscreenDialog: true,
                     ),
                   );
+                  setState(() async {
+                    widget.parent.loaded = null;
+                    widget.parent.setState(() {});
+                    _events = await EventDB().getEvents();
+                    widget.parent._selectedEvents = await EventDB().getFlatEvent(tdy, test);
+                    widget.parent.loaded = true;
+                    widget.parent.setState(() {});
+                  });
                 } else if (index == 0) {
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AllEvent(
@@ -282,6 +327,14 @@ class _FloatingActionButtState extends State<FloatingActionButt>
                       ),
                     ),
                   );
+                  setState(() async {
+                    widget.parent.loaded = null;
+                    widget.parent.setState(() {});
+                    _events = await EventDB().getEvents();
+                    widget.parent._selectedEvents = await EventDB().getFlatEvent(tdy, test);
+                    widget.parent.loaded = true;
+                    widget.parent.setState(() {});
+                  });
                 }
                 _controller.reverse();
               },
