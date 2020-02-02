@@ -92,7 +92,7 @@ class _ContactState extends State<Contact> {
     if(loading) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Please Login!'),
+          title: Text(widget.title),
         ),
         body: Center(
           child: CircularProgressIndicator(),
