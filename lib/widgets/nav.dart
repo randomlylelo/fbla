@@ -165,7 +165,7 @@ class _NavState extends State<Nav> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 205,
+            height: 210,
             child: DrawerHeader(
               child: Column(
                 children: <Widget>[

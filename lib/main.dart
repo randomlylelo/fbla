@@ -115,8 +115,9 @@ class _SchoolNavState extends State<SchoolNav> {
               ),
             ),
             Container(
-              height: height * .05,
+              height: height * .1,
               width: width,
+              alignment: Alignment.center,
               child: Container(
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Column(
@@ -126,6 +127,7 @@ class _SchoolNavState extends State<SchoolNav> {
                     ),
                     Text(
                       'Ask your sponsor to email us at FBLAManage@gmail.com',
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),

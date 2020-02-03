@@ -38,7 +38,7 @@ class Officers extends StatelessWidget {
               Container(
                 alignment: Alignment.topLeft,
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.29,
                   child: Column(
                     children: <Widget>[
                       Container(
