@@ -70,26 +70,26 @@ flutter:
   fonts:
     - family: Raleway
       fonts:
-        - asset: lib/assets/fonts/Raleway-Black.ttf
-        - asset: lib/assets/fonts/Raleway-BlackItalic.ttf
-        - asset: lib/assets/fonts/Raleway-Bold.ttf
+        - asset: lib/assets/fonts/raleway_black.ttf
+        - asset: lib/assets/fonts/raleway_black_italic.ttf
+        - asset: lib/assets/fonts/raleway_bold.ttf
           weight: 700
-        - asset: lib/assets/fonts/Raleway-BoldItalic.ttf
-        - asset: lib/assets/fonts/Raleway-ExtraBold.ttf
-        - asset: lib/assets/fonts/Raleway-ExtraBoldItalic.ttf
-        - asset: lib/assets/fonts/Raleway-ExtraLight.ttf
-        - asset: lib/assets/fonts/Raleway-ExtraLightItalic.ttf
-        - asset: lib/assets/fonts/Raleway-Heavy.ttf
-        - asset: lib/assets/fonts/Raleway-Italic.ttf
-        - asset: lib/assets/fonts/Raleway-Light.ttf
-        - asset: lib/assets/fonts/Raleway-LightItalic.ttf
-        - asset: lib/assets/fonts/Raleway-Medium.ttf
-        - asset: lib/assets/fonts/Raleway-MediumItalic.ttf
-        - asset: lib/assets/fonts/Raleway-Regular.ttf
-        - asset: lib/assets/fonts/Raleway-SemiBold.ttf
-        - asset: lib/assets/fonts/Raleway-SemiBoldItalic.ttf
-        - asset: lib/assets/fonts/Raleway-Thin.ttf
-        - asset: lib/assets/fonts/Raleway-ThinItalic.ttf
+        - asset: lib/assets/fonts/raleway_bold_italic.ttf
+        - asset: lib/assets/fonts/raleway_extra_bold.ttf
+        - asset: lib/assets/fonts/raleway_extra_bold_italic.ttf
+        - asset: lib/assets/fonts/raleway_extra_light.ttf
+        - asset: lib/assets/fonts/raleway_extra_light_italic.ttf
+        - asset: lib/assets/fonts/raleway_heavy.ttf
+        - asset: lib/assets/fonts/raleway_italic.ttf
+        - asset: lib/assets/fonts/raleway_light.ttf
+        - asset: lib/assets/fonts/raleway_light_italic.ttf
+        - asset: lib/assets/fonts/raleway_medium.ttf
+        - asset: lib/assets/fonts/raleway_medium_italic.ttf
+        - asset: lib/assets/fonts/raleway_regular.ttf
+        - asset: lib/assets/fonts/raleway_semi_bold.ttf
+        - asset: lib/assets/fonts/raleway_semi_bold_italic.ttf
+        - asset: lib/assets/fonts/raleway_thin.ttf
+        - asset: lib/assets/fonts/raleway_thin_italic.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
